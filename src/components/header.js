@@ -4,9 +4,22 @@ import { CiHeart } from "react-icons/ci";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { CiSearch } from "react-icons/ci";
 import { MdKeyboardArrowLeft } from "react-icons/md";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 
 function Header() {
+    const [activeNav, setActiveNav] = useState(false)
+
+    useEffect(() => {
+        const handleClick = ()=>{
+            setActiveNav(true)
+            console.log('dsoifds')
+        }
+        document.getElementById('mobile-nav-bar').addEventListener('click', ()=>{
+            handleClick()
+        })
+    }, [])
+
     const [breakPointWidth, setBreakPointWidth] = useState(false)
 
     useEffect(()=>{
@@ -20,23 +33,38 @@ function Header() {
         return () => window.removeEventListener('resize', bodyWidth)
     }, [])
 
-    const mobileNav = () => {
-        return (
-            <div className='h-screen w-screen bg-white p-3'>
+    const mobileNav = () => (
+            <div className={` h-screen  p-3 z-40 bg-blue-900 absolute top-0 ${activeNav ? 'w-4/5 left-0' : 'w-0 -left-96'}`} style={{transition: 'ease .5s '}}>
+                <div className='w-11/12 m-auto flex justify-between items-center'>
+                        <h1 className='font-bold text-2xl' style={{whiteSpace: 'nowrap'}}>Ecommerce App</h1>
+                        <div>
+                            <p style={{whiteSpace: "nowrap"}}>Back <MdKeyboardArrowRight className='inline'/></p>
+                        </div>
+                    </div>
                 <nav>
                     <ul>
-                        <li><a href='./'></a></li>
-                        <li><a href='./'></a></li>
-                        <li><a href='./'></a></li>
-                        <li><a href='./'></a></li>
-                        <li><a href='./'></a></li>
+                        <li><a href='./'>Home</a></li>
+                        <li>
+                            <div>
+                                Categories <RiArrowDropDownLine />
+                                <ul>
+                                    <li><a href='./'>Women's Fashion</a></li>
+                                    <li><a href='./'>Men's Fashion</a></li>
+                                    <li><a href='./'>Electronics</a></li>
+                                    <li><a href='./'>Home & Lifestyle</a></li>
+                                    <li><a href='./'>Medicine</a></li>
+                                    <li><a href='./'>Sports and Outdoor</a></li>
+                                    <li><a href='./'>Baby's and Toys</a></li>
+                                    <li><a href='./'>Groceries and Pets</a></li>
+                                    <li><a href='./'>Health and Beauty</a></li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </nav>
                     
             </div>
         )
-    
-    }
   return (
         breakPointWidth ? (
             <div className='text-white lg:border-b lg:border-gray-200 pb-3 '>
@@ -96,12 +124,14 @@ function Header() {
                                 <AiOutlineShoppingCart className='text-2xl'/>
                             </div>
                             <div>
-                                <p style={{whiteSpace: "nowrap"}}><MdKeyboardArrowLeft className='inline'/> Menu</p>
+                                <p style={{whiteSpace: "nowrap", cursor:'pointer'}} id='mobile-nav-bar'><MdKeyboardArrowLeft className='inline'/> Menu</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                {activeNav && mobileNav()}
             </div>
+            
         )
   )
 }
