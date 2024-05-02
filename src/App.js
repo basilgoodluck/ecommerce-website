@@ -1,13 +1,13 @@
 import './App.css';
-import { FaBeer } from "react-icons/fa";
+// import { FaBeer } from "react-icons/fa";
+import Header from './components/header';
 
 
 
 function App() {
   return (
     <div className="App">
-      <h1 className='text-blue-800'>Hello World</h1>
-      <FaBeer />
+      <Header />
     </div>
   );
 }
