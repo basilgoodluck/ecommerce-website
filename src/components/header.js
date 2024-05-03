@@ -8,17 +8,43 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 
 
 function Header() {
-    const [activeNav, setActiveNav] = useState(false)
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setActiveNav(!activeNav);
+        setIsOpen(!isOpen);
+    };
 
     useEffect(() => {
-        const handleClick = ()=>{
-            setActiveNav(true)
-            console.log('dsoifds')
-        }
-        document.getElementById('mobile-nav-bar').addEventListener('click', ()=>{
-            handleClick()
-        })
-    }, [])
+        const handleOutsideClick = (event) => {
+            const navMenu = document.getElementById('mobile-nav');
+            const navBarButton = document.getElementById('mobile-nav-bar');
+            if (navMenu && !navMenu.contains(event.target) && event.target !== navBarButton) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('click', handleOutsideClick);
+
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, []);
+
+    const [activeNav, setActiveNav] = useState(false);
+
+    useEffect(() => {
+        const handleClick = () => {
+            setActiveNav(true);
+            console.log('Navbar opened');
+        };
+
+        document.getElementById('mobile-nav-bar').addEventListener('click', handleClick);
+
+        return () => {
+            document.getElementById('mobile-nav-bar').removeEventListener('click', handleClick);
+        };
+    }, []);
 
     const [breakPointWidth, setBreakPointWidth] = useState(false)
 
@@ -34,11 +60,11 @@ function Header() {
     }, [])
 
     const mobileNav = () => (
-            <div className={`text-black h-screen pt-4 p-3 z-40 bg-white shadow-2xl absolute top-0 ${activeNav ? 'w-4/5 left-0' : 'w-0 -left-96'}`} style={{transition: 'ease .5s '}}>
+            <div id='mobile-nav' className={`text-black h-screen pt-4 p-3 z-40 bg-white shadow-2xl absolute top-0 ${activeNav ? 'w-4/5 left-0' : 'w-0 -left-96'}`} style={{transition: 'ease .5s '}}>
                 <div className='w-11/12 m-auto flex justify-between items-center'>
                         <h1 className='font-bold text-2xl' style={{whiteSpace: 'nowrap'}}>Ecommerce App</h1>
                         <div>
-                            <p style={{whiteSpace: "nowrap"}}>Back <MdKeyboardArrowRight className='inline'/></p>
+                            <p onClick={toggleMenu} style={{whiteSpace: "nowrap"}}>Back <MdKeyboardArrowRight className='inline'/></p>
                         </div>
                     </div>
                 <nav className='w-11/12 m-auto py-10'>
@@ -140,3 +166,5 @@ function Header() {
 }
 
 export default Header
+
+
