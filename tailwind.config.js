@@ -2,7 +2,8 @@
 module.exports = {
   content: [
     "./src/app.js",
-    "./src/components/header.js",
+    "./src/layouts/header.js",
+    "./src/layouts/mobileNav.js",
   ],
   theme: {
     extend: {},
