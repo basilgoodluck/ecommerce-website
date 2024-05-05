@@ -6,6 +6,7 @@ module.exports = {
     "./src/layouts/mobileNav.js",
     "./src/layouts/footer.js",
     "./src/components/slider.js",
+    "./src/components/slideCard.js",
   ],
   theme: {
     extend: {},

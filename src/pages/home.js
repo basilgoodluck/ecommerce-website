@@ -5,7 +5,7 @@ import Slider from '../components/slider'
 
 function Home() {
   return (
-    <div>
+    <div className='flex flex-col gap-11'>
         <Header />
         <Slider />  
         <Footer />    
