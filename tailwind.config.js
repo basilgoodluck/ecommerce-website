@@ -5,6 +5,7 @@ module.exports = {
     "./src/layouts/header.js",
     "./src/layouts/mobileNav.js",
     "./src/layouts/footer.js",
+    "./src/components/slider.js",
   ],
   theme: {
     extend: {},
