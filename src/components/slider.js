@@ -16,11 +16,11 @@ function Slider() {
     
   return (
     <div className='w-11/12 md:w-4/5 m-auto overflow-hidden bg-black text-white'>
-        <div className='bg-black w-11/12 md:w-4/5 m-auto'>
+        <div className='bg-black w-full'>
             <div className='flex w-full justify-between'>
-                <SlideCard />
-                <SlideCard />
-                <SlideCard />
+                <SlideCard contentImg={'./assets/developer.webp'} />
+                <SlideCard contentImg={'./assets/iphone.png'} />
+                <SlideCard contentImg={'.assets/teddyBear.webp'}/>
             </div>
         </div>
         <div className='w-full py-3 flex justify-center items-center gap-2'>
