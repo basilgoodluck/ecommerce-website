@@ -35,7 +35,7 @@ function Slider() {
 
 
   return (
-    <div className='w-full md:w-4/5 m-auto overflow-hidden bg-black text-white'>
+    <div className='w-full m-auto overflow-hidden bg-black text-white'>
       <div className='bg-black w-full'>
         <div className='flex w-full justify-between' ref={sliderBoxRef}>
           {images.map((image) => (

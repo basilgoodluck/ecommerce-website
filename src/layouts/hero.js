@@ -19,7 +19,7 @@ function Hero() {
                     <li><a className='text-base p-2' href='./'>Health and Beauty</a></li>
                 </ul>
             </div>
-            <div className='pt-6'>
+            <div className='pt-6 m-auto w-full'>
                 <Slider />
             </div>
         </div>
