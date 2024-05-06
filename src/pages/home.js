@@ -5,8 +5,9 @@ import Hero from '../layouts/hero'
 import FlashSales from '../layouts/flashSales'
 
 function Home() {
+  
   return (
-    <div className=''>
+    <div className=' -z-50'>
         <Header />
         <Hero /> 
         <FlashSales /> 
