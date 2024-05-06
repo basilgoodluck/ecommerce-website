@@ -3,6 +3,7 @@ import Header from '../layouts/header'
 import Footer from '../layouts/footer'
 import Hero from '../layouts/hero'
 import FlashSales from '../layouts/flashSales'
+import Categories from '../layouts/categories'
 
 function Home() {
   
@@ -11,6 +12,7 @@ function Home() {
         <Header />
         <Hero /> 
         <FlashSales /> 
+        <Categories />
         <Footer />    
     </div>
   )

@@ -10,6 +10,7 @@ module.exports = {
     "./src/components/slideCard.js",
     "./src/layouts/flashSales.js",
     "./src/components/flashSalesCard.js",
+    "./src/layouts/categories.js",
   ],
   theme: {
     extend: {},
