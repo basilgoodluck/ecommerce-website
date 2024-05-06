@@ -7,9 +7,11 @@ function Slider() {
   const [slideWidth, setSlideWidth] = useState(0);
 
   const images = [
-    <SlideCard key={0} contentImg={'./assets/iphone.png'} />,
-    <SlideCard key={1} contentImg={'./assets/developer.webp'} />,
-    <SlideCard key={2} contentImg={'./assets/teddyBear.webp'} />,
+    <SlideCard key={0} contentImg={'./assets/teddyBear.webp'} />,
+    <SlideCard key={1} contentImg={'./assets/iphone.png'} />,
+    <SlideCard key={2} contentImg={'./assets/developer.webp'} />,
+    <SlideCard key={3} contentImg={'./assets/teddyBear.webp'} />,
+    <SlideCard key={4} contentImg={'./assets/iphone.png'} />,
   ];
 
   // const firstItemClone = images[0].cloneNode(true);
@@ -19,8 +21,8 @@ function Slider() {
   const moveToNextSlide = useCallback(() => {
     setCurrentIndex(prevIndex => prevIndex === images.length - 1 ? 0 : prevIndex + 1);
     const targetPosition = -slideWidth * (currentIndex);
-    sliderBoxRef.current.style.transform = `translateX(${targetPosition}px)`;
-    sliderBoxRef.current.style.transition = currentIndex === images.length - 1 ? '0' : 'transform ease .7s';
+    sliderBoxRef.current.style.transform =  currentIndex === images.length - 1 ? `translateX(0)` : `translateX(${targetPosition}px)`;
+    sliderBoxRef.current.style.transition = currentIndex === images.length - 1 || currentIndex === 0 ? 'none' : 'transform ease .7s';
   }, [slideWidth, currentIndex, images.length]);
 
   useEffect(() => {
@@ -29,11 +31,10 @@ function Slider() {
     const interval = setInterval(() => {
       moveToNextSlide();
     }, 2000);
+    
 
     return () => clearInterval(interval);
   }, [images.length, slideWidth, moveToNextSlide]);
-
-
   return (
     <div className='w-full m-auto overflow-hidden bg-black text-white'>
       <div className='bg-black w-full'>

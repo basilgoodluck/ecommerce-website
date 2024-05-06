@@ -8,6 +8,8 @@ module.exports = {
     "./src/layouts/hero.js",
     "./src/components/slider.js",
     "./src/components/slideCard.js",
+    "./src/layouts/flashSales.js",
+    "./src/components/flashSalesCard.js",
   ],
   theme: {
     extend: {},
