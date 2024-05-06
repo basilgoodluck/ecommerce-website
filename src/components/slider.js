@@ -1,19 +1,7 @@
-import React, { useEffect, useState } from 'react'
+// import React, { useEffect, useState } from 'react'
 import SlideCard from './slideCard'
 
-function Slider() {
-    const [slides, setSlides] = useState([])
-    const [currentIndex, setCurrentIndex] = useState(0)
-
-    useEffect(()=>{
-        setSlides((prevSlides) => {
-            const newSlides = [...prevSlides, <SlideCard key={prevSlides.length + 1}/>, <SlideCard key={prevSlides.length + 2}/>, <SlideCard key={prevSlides.length + 3}/>];
-            return newSlides;
-        })
-    }, []);
-
-    console.log(slides[currentIndex])
-    
+function Slider() {    
   return (
     <div className='w-11/12 md:w-4/5 m-auto overflow-hidden bg-black text-white'>
         <div className='bg-black w-full'>
