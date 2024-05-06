@@ -18,17 +18,17 @@
 //                 <li className='border-b pt-5 pb-2 text-xl'>
 //                     <div>
 //                         Categories <RiArrowDropDownLine className='inline text-2xl'/>
-//                         <ul className='h-0 overflow-hidden '>
-//                             <li><a className='text-base p-2' href='./'>Women's Fashion</a></li>
-//                             <li><a className='text-base p-2' href='./'>Men's Fashion</a></li>
-//                             <li><a className='text-base p-2' href='./'>Electronics</a></li>
-//                             <li><a className='text-base p-2' href='./'>Home & Lifestyle</a></li>
-//                             <li><a className='text-base p-2' href='./'>Medicine</a></li>
-//                             <li><a className='text-base p-2' href='./'>Sports and Outdoor</a></li>
-//                             <li><a className='text-base p-2' href='./'>Baby's and Toys</a></li>
-//                             <li><a className='text-base p-2' href='./'>Groceries and Pets</a></li>
-//                             <li><a className='text-base p-2' href='./'>Health and Beauty</a></li>
-//                         </ul>
+                        // <ul className='h-0 overflow-hidden '>
+                        //     <li><a className='text-base p-2' href='./'>Women's Fashion</a></li>
+                        //     <li><a className='text-base p-2' href='./'>Men's Fashion</a></li>
+                        //     <li><a className='text-base p-2' href='./'>Electronics</a></li>
+                        //     <li><a className='text-base p-2' href='./'>Home & Lifestyle</a></li>
+                        //     <li><a className='text-base p-2' href='./'>Medicine</a></li>
+                        //     <li><a className='text-base p-2' href='./'>Sports and Outdoor</a></li>
+                        //     <li><a className='text-base p-2' href='./'>Baby's and Toys</a></li>
+                        //     <li><a className='text-base p-2' href='./'>Groceries and Pets</a></li>
+                        //     <li><a className='text-base p-2' href='./'>Health and Beauty</a></li>
+                        // </ul>
 //                     </div>
 //                 </li>
 //                 <li className='border-b pt-5 pb-2 text-xl'><a href='./'>Contact</a></li>

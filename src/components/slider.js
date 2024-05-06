@@ -6,8 +6,8 @@ function Slider() {
     <div className='w-11/12 md:w-4/5 m-auto overflow-hidden bg-black text-white'>
         <div className='bg-black w-full'>
             <div className='flex w-full justify-between'>
-                <SlideCard contentImg={'./assets/developer.webp'} />
                 <SlideCard contentImg={'./assets/iphone.png'} />
+                <SlideCard contentImg={'./assets/developer.webp'} />
                 <SlideCard contentImg={'.assets/teddyBear.webp'}/>
             </div>
         </div>
