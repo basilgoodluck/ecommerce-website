@@ -3,12 +3,12 @@ import { FaStar } from "react-icons/fa";
 
 function FLashSalesCard({imageSrc}) {
   return (
-    <div className='group flex flex-col gap-4 w-56' style={{flex: '0 0 auto'}}>
-        <div className='bg-gray-200 p-2 relative h-64 '>
-            <div className='absolute bg-red-600 text-white p-1 top-2 left-2'>-50%</div>
+    <div className='group flex flex-col gap-4 w-56 ' style={{flex: '0 0 auto'}}>
+        <div className='bg-gray-200 p-2 relative h-56 md:h-64 '>
+            <div className='absolute bg-red-600 text-white p-1 top-2 left-2 text-xs md:text-sm'>-50%</div>
             <div></div>
             <div></div>
-            <div className='w-full h-full p-10 flex justify-center items-center overflow-hidden'>
+            <div className='w-full h-full p-5 flex justify-center items-center overflow-hidden'>
                 <img src={imageSrc} alt='gamePad' className='m-auto' />
             </div>
         </div> 

@@ -4,8 +4,8 @@ import { FaStar } from "react-icons/fa";
 function OurProductsCard({imageSrc}) {
   return (
     <div className='group flex flex-col gap-4 min:w-96' style={{flex:'0 0 23%'}}>
-        <div className='bg-gray-200 p-2 relative h-64 '>
-            <div className='absolute bg-green-600 text-white p-1 top-2 left-2'>NEW</div>
+        <div className='bg-gray-200 p-2 relative h-48 md:h-64 '>
+            <div className='absolute bg-green-600 text-white p-1 text-xs top-2 left-2'>NEW</div>
             <div></div>
             <div></div>
             <div className='w-full h-full p-10 flex justify-center items-center overflow-hidden'>

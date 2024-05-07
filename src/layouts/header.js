@@ -27,7 +27,7 @@ function Header() {
                     <li><a href='./' className='py-2 px-1 hover:underline hover:underline-offset-2'>Blog</a></li>
                 </ul>
                </nav>
-              <div className='flex justify-between items-center'>
+              <div className='flex justify-between items-center gap-2'>
                 <div className='hidden md:flex bg-gray-100 p-2 rounded-xl lg:w-96 lg:flex lg:justify-between lg:items-center'>
                   <input type='text' placeholder='What are you looking for ?' className='bg-inherit text-base lg:w-full outline-0'/>
                   <button><CiSearch className='inline md:text-xl lg:text-2xl text-gray-600'/></button>
