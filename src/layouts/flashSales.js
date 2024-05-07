@@ -10,21 +10,21 @@ function FlashSales() {
                 <h1 className='font-semibold text-md text-red-600'>Today's</h1>
             </div>
             <div className='flex gap-11 items-center'>
-                <h1 className='text-black text-4xl font-medium'>Flash Sales</h1>
-                <div className='flex gap-3 text-red-600 font-black text-4xl items-center ml-[20px]'>
-                    <div className='text-3xl font-black text-black'>
+                <h1 className='text-black text-2xl md:text-3xl font-medium'>Flash Sales</h1>
+                <div className='flex gap-3 text-red-600 font-black text-2xl md:text-3xl items-center ml-[20px]'>
+                    <div className='text-xl md:text-2xl font-black text-black'>
                         <p className='text-sm font-sm'>Days</p>
                         <h4>04</h4>
                     </div> :
-                    <div className='text-3xl font-black text-black'>
+                    <div className='text-xl md:text-2xl font-black text-black'>
                         <p className='text-sm font-sm'>Hours</p>
                         <h4>12</h4>
                     </div> :
-                    <div className='text-3xl font-black text-black'>
+                    <div className='text-xl md:text-2xl font-black text-black'>
                         <p className='text-sm font-sm'>Minutes</p>
                         <h4>45</h4>
                     </div> :
-                    <div className='text-3xl font-black text-black'>
+                    <div className='text-xl md:text-2xl font-black text-black'>
                         <p className='text-sm font-sm'>Seconds</p>
                         <h4>32</h4>
                     </div>
