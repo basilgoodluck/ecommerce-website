@@ -14,10 +14,6 @@ function Slider() {
     <SlideCard key={4} contentImg={'./assets/iphone.png'} />,
   ];
 
-  // const firstItemClone = images[0].cloneNode(true);
-  // const lastItemClone = images[images.length - 1].cloneNode(true);
-  // console.log(lastItemClone, firstItemClone)
-
   const moveToNextSlide = useCallback(() => {
     setCurrentIndex(prevIndex => prevIndex === images.length - 1 ? 0 : prevIndex + 1);
     const targetPosition = -slideWidth * (currentIndex);
