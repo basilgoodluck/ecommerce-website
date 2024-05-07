@@ -31,7 +31,7 @@ function FlashSales() {
                 </div>
             </div>
         </div>
-        <div className='flex gap-11 items-center justify-between'>
+        <div className='flex gap-6 items-center justify-between'>
             <FLashSalesCard imageSrc={'./assets/gamePad.png'} />
             <FLashSalesCard imageSrc={'./assets/chair.png'}/>
             <FLashSalesCard imageSrc={'./assets/firefox.png'}/>

@@ -17,7 +17,7 @@ function Header() {
             </div>
           </div>
           <div className=' w-full bg-white text-black pt-16 pb-3 sticky top-0 z-50'>
-            <div className='w-11/12 m-auto md:w-4/5 md:m-auto flex justify-between items-center'>
+            <div className='w-11/12 m-auto lg:w-4/5 md:m-auto flex justify-between items-center'>
               <h1 className='font-bold text-2xl md:text-3xl'>Ecommerce App</h1>
               <nav className='hidden md:block'>
                 <ul className="flex gap-8 items-center text-lg">

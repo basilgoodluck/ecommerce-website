@@ -6,7 +6,7 @@ function Hero() {
   return (
     <div className='pb-10'>
         <div className='w-11/12 md:w-4/5 m-auto flex lg:gap-11 md:gap-3 md:justify-between lg:justify-normal '>
-            <div className='hidden md:block border-r border-gray-400 lg:w-2/6 md:w-3/6'>
+            <div className='hidden md:block border-r border-gray-400 w-1/3 lg:w-2/6 md:w-3/6'>
                 <ul className='h-full flex flex-col justify-between items-start pt-6'>
                     <li><a className='text-base p-2 flex justify-between' href='./'>Women's Fashion <MdKeyboardArrowRight className='inline text-2xl' /></a></li>
                     <li><a className='text-base p-2 flex justify-between' href='./'>Men's Fashion <MdKeyboardArrowRight  className='inline text-2xl'/></a></li>
@@ -19,7 +19,7 @@ function Hero() {
                     <li><a className='text-base p-2' href='./'>Health and Beauty</a></li>
                 </ul>
             </div>
-            <div className='pt-6 m-auto w-full'>
+            <div className='pt-6 m-auto w-full md:w-3/5 '>
                 <Slider />
             </div>
         </div>

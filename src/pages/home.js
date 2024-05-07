@@ -4,6 +4,9 @@ import Footer from '../layouts/footer'
 import Hero from '../layouts/hero'
 import FlashSales from '../layouts/flashSales'
 import Categories from '../layouts/categories'
+import BestSellingProducts from '../layouts/bestSellingProducts'
+import OurProducts from '../layouts/ourProducts'
+import NewArrivals from '../layouts/newArrivals'
 
 function Home() {
   
@@ -13,7 +16,10 @@ function Home() {
         <Hero /> 
         <FlashSales /> 
         <Categories />
-        <Footer />    
+        <BestSellingProducts />
+        <OurProducts />
+        <NewArrivals />  
+        <Footer />  
     </div>
   )
 }

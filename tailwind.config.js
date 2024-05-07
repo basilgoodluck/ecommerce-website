@@ -11,6 +11,11 @@ module.exports = {
     "./src/layouts/flashSales.js",
     "./src/components/flashSalesCard.js",
     "./src/layouts/categories.js",
+    "./src/layouts/bestSellingProducts.js",
+    "./src/layouts/ourProducts.js",
+    "./src/layouts/newArrivals.js",
+    "./src/components/bestSellingProductsCard.js",
+
   ],
   theme: {
     extend: {},
