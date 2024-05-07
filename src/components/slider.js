@@ -40,7 +40,7 @@ function Slider() {
           ))}
         </div>
       </div>
-      <div className='w-full py-3 flex justify-center items-center gap-2'>
+      <div className='w-full py-1 flex justify-center items-center gap-2'>
         <button className='w-1 h-1 rounded-full bg-gray-400 p-1'></button>
         <button className='w-1 h-1 rounded-full bg-gray-400 p-1'></button>
         <button className='w-1 h-1 rounded-full bg-red-400 p-1'></button>

@@ -3,7 +3,7 @@ import { FaArrowRight } from 'react-icons/fa'
 
 function SlideCard({contentImg}) {
   return (
-    <div className='w-full flex items-center justify-center p-10 gap-4' style={{flex: '0 0 100%',
+    <div className='w-full flex items-center justify-center p-4 gap-4' style={{flex: '0 0 100%',
         width: '100%',}}>
         <div className='w-full flex flex-col gap-4 items-start'>
             <div className='flex gap-4 items-center'>
