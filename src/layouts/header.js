@@ -32,17 +32,17 @@ function Header() {
                   <input type='text' placeholder='What are you looking for ?' className='bg-inherit text-base lg:w-full outline-0'/>
                   <button><CiSearch className='inline md:text-xl lg:text-2xl text-gray-600'/></button>
                 </div>
-                <button className='p-2'>
-                  <CiHeart className='text-2xl text-red-600'/>
+                <button className=''>
+                  <CiHeart className='text-xl md:text-2xl text-red-600'/>
                 </button>
-                <button className='p-2'>
-                  <AiOutlineShoppingCart className='text-2xl text-amber-500'/>
+                <button className=''>
+                  <AiOutlineShoppingCart className='text-xl md:text-2xl text-amber-500'/>
                 </button>
-                <div className='md:hidden p-2'>
+                <div className='md:hidden'>
                   <p style={{whiteSpace: "nowrap", cursor:'pointer'}} id='mobile-nav-bar'><MdKeyboardArrowLeft className='inline'/> Menu</p>
                 </div>
-                <button className='p-2'>
-                    <FaRegUserCircle className='text-2xl text-green-500' />
+                <button className=''>
+                    <FaRegUserCircle className='text-xl md:text-2xl text-green-500' />
                 </button>
               </div>
             </div>

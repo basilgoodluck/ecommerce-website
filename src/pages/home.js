@@ -11,7 +11,7 @@ import NewArrivals from '../layouts/newArrivals'
 function Home() {
   
   return (
-    <div className=''>
+    <div>
         <Header />
         <Hero /> 
         <FlashSales /> 
