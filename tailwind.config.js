@@ -15,6 +15,7 @@ module.exports = {
     "./src/layouts/ourProducts.js",
     "./src/layouts/newArrivals.js",
     "./src/components/bestSellingProductsCard.js",
+    "./src/pages/error-page.js",
 
   ],
   theme: {
