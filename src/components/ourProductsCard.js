@@ -1,22 +1,21 @@
 import React from 'react'
 import { FaStar } from "react-icons/fa";
 
-function OurProductsCard({imageSrc}) {
+function OurProductsCard({imageSrc, title, price, rate}) {
   return (
-    <div className='group flex flex-col gap-4 min:w-96' style={{flex:'0 0 23%'}}>
-        <div className='bg-gray-200 p-2 relative h-48 md:h-64 '>
+    <div className='group flex flex-col gap-4 w-96' style={{flex:'0 0 23%'}}>
+        <div className='relative h-64 overflow-hidden'>
             <div className='absolute bg-green-600 text-white p-1 text-xs top-2 left-2'>NEW</div>
             <div></div>
             <div></div>
-            <div className='w-full h-full p-10 flex justify-center items-center overflow-hidden'>
-                <img src={imageSrc} alt='gamePad' className='m-auto' />
+            <img src={imageSrc} alt='gamePad' className='m-auto h-full w-full object-cover' />
+            <div className='overflow-hidden'>
             </div>
         </div> 
         <div className='flex flex-col gap-2'>
-            <h4 className='font-semibold ' style={{letterSpacing: '1px', whiteSpace: 'nowrap'}}>HAVIT HV-G92 Gamepad</h4>
+            <h4 className='font-semibold ' style={{letterSpacing: '1px', whiteSpce: 'nowrap'}}>{title}</h4>
             <div className='flex gap-3 items-center '>
-                <p className='text-red-500 font-medium'>$200</p>
-                <p className='text-gray-400 font-medium'>$500</p>
+                <p className='text-red-500 font-medium'>${price}</p>
             </div>
             <div className='flex gap-3 '>
                 <p className='flex gap-1 items-center'>
@@ -26,7 +25,7 @@ function OurProductsCard({imageSrc}) {
                     <FaStar className='text-yellow-500' />
                     <FaStar className='text-yellow-500' />
                 </p>
-                <p>(80)</p>
+                <p>({rate})</p>
             </div>
         </div>     
     </div>

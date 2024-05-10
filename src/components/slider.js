@@ -2,35 +2,29 @@ import React from 'react'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "./slider.css"
+import SliderCard from "./slideCard"
 
 const SliderCase = () => {
+
+  
+  const images = [
+    <SliderCard key={0} contentImg={"./assets/developer.webp"} />,
+    <SliderCard key={1} contentImg={"./assets/iphone.png"}/>,
+    <SliderCard key={2} contentImg={"./assets/teddyBear.webp"}/>
+  ]
   const settings = {
-    dots: false,
-    speed: 500,
+    speed: 300,
     slidesToShow: 1,
     slidesToScroll: 1,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 5000,
   };
 
   return (
-    <div>
-      <h2>Carousel Component</h2>
-      <Slider {...settings}>
-        <div>
-          <h3>FIRST SLIDE</h3>
-        </div>
-        <div>
-          <h3>SECOND SLIDE</h3>
-        </div>
-        <div>
-          <h3>THIRD SLIDE</h3>
-        </div>
-        <div>
-          <h3>FORTH SLIDE</h3>
-        </div>
+    <div >
+      <Slider className='bg-black text-white flex justify-between items-center' {...settings}>
+        {images.map((image) => (image))}        
       </Slider>
     </div>
   );

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
+import * as ReactDOM from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Header from './layouts/header'
@@ -8,7 +8,9 @@ import Home from './pages/home';
 import About from './pages/about';
 import Blog from './pages/blog';
 import Contact from './pages/contact';
+import Products from './pages/products';
 import ErrorPage from './pages/error-page';
+import ProductsData from './api/productsData';
 
 
 const Layout = () => {
@@ -43,6 +45,11 @@ const router = createBrowserRouter([
         path: '/contact',
         element: <Contact />,
       },
+      {
+        path: '/products',
+        element: <Products />,
+        loader: ProductsData,
+      }
     ]
   },
 ]);

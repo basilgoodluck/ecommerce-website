@@ -53,9 +53,6 @@ function Categories() {
                 <div className='text-center font-normal text-xl'><h4>Computers</h4></div>
             </div>
         </div>   
-        <div className='w-full'>
-            <button className='block text-white text-xs md:text-md bg-red-600 rounded-md m-auto py-2 px-5'>View All Products</button>
-        </div>  
     </div>
   )
 }

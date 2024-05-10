@@ -23,6 +23,7 @@ function Header() {
               <nav className='hidden md:block'>
                 <ul className="flex gap-2 lg:gap-4 items-center text-md lg:text-lg">
                     <li><Link to='/' className='py-2 px-1 hover:underline hover:underline-offset-2'>Home</Link></li>
+                    <li><Link to='/products' className='py-2 px-1 hover:underline hover:underline-offset-2'>Products</Link></li>
                     <li><Link to='/contact' className='py-2 px-1 hover:underline hover:underline-offset-2'>Contact</Link></li>
                     <li><Link to='/about' className='py-2 px-1 hover:underline hover:underline-offset-2'>About</Link></li>
                     <li><Link to='/blog' className='py-2 px-1 hover:underline hover:underline-offset-2'>Blog</Link></li>
