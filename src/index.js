@@ -21,10 +21,19 @@ const Layout = () => {
   const toggleMobileNav = () => {
     setIsMobileNavOpen(!isMobileNavOpen)
   }
+
+  const closeMobileNav = () => {
+    setIsMobileNavOpen(false)
+  }
+
+  
   return (
     <div>
       <Header toggleMobileNav={toggleMobileNav} />
-      <MobileNav toggleMobileNav={toggleMobileNav} isOpen={isMobileNavOpen} />
+      <MobileNav  
+        toggleMobileNav={toggleMobileNav} 
+        isOpen={isMobileNavOpen} 
+        closeMobileNav={closeMobileNav} />
       <Outlet />
       <Footer />
     </div>
