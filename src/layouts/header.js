@@ -8,7 +8,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 
-function Header() {    
+function Header({ toggleMobileNav }) {    
     return (
         <div className='text-white border-b border-gray-200'>
           <div className='bg-black'>
@@ -41,7 +41,7 @@ function Header() {
                   <AiOutlineShoppingCart className='text-xl md:text-2xl text-amber-500'/>
                 </button>
                 <div className='md:hidden'>
-                  <p style={{whiteSpace: "nowrap", cursor:'pointer'}} id='mobile-nav-bar'><MdKeyboardArrowLeft className='inline'/> Menu</p>
+                  <button style={{whiteSpace: "nowrap", cursor:'pointer'}} onClick={toggleMobileNav} id='mobile-nav-bar'><MdKeyboardArrowLeft className='inline'/> Menu</button>
                 </div>
                 <button className=''>
                     <FaRegUserCircle className='text-xl md:text-2xl text-green-500' />

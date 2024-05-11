@@ -12,12 +12,19 @@ import Products from './pages/products';
 import ErrorPage from './pages/error-page';
 import ProductsData from './api/productsData';
 import HeroProducts from './api/heroProducts';
+import MobileNav from './layouts/mobileNav';
 
 
 const Layout = () => {
+  const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false)
+
+  const toggleMobileNav = () => {
+    setIsMobileNavOpen(!isMobileNavOpen)
+  }
   return (
     <div>
-      <Header />
+      <Header toggleMobileNav={toggleMobileNav} />
+      <MobileNav toggleMobileNav={toggleMobileNav} isOpen={isMobileNavOpen} />
       <Outlet />
       <Footer />
     </div>
