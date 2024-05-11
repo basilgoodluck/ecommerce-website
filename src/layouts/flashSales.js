@@ -2,7 +2,14 @@ import React from 'react'
 import FLashSalesCard from '../components/flashSalesCard';
 import { Link } from 'react-router-dom';
 
-function FlashSales() {
+function FlashSales({ products }) {
+
+    const returnProducts = ( )=> {
+        return products.slice(0, 5).map((item)=>(
+            <FLashSalesCard key={item.id} imageSrc={item.images[0]} />
+
+        ))
+    }
   return (
     <div className=' w-11/12 md:w-4/5 m-auto pt-[25px] pb-[50px] flex flex-col gap-4 border-b border-gray-400'>
         <div className='flex flex-col gap-7'>
@@ -33,13 +40,14 @@ function FlashSales() {
             </div>
         </div>
         <div className='flex gap-6 items-center justify-between'>
-            <FLashSalesCard imageSrc={'./assets/gamePad.png'} />
+            {/* <FLashSalesCard imageSrc={'./assets/gamePad.png'} />
             <FLashSalesCard imageSrc={'./assets/chair.png'}/>
             <FLashSalesCard imageSrc={'./assets/firefox.png'}/>
             <FLashSalesCard imageSrc={'./assets/keyboard.png'}/>
             <FLashSalesCard imageSrc={'./assets/gamePad.png'}/>
             <FLashSalesCard imageSrc={'./assets/chair.png'}/>
-            <FLashSalesCard imageSrc={'./assets/firefox.png'}/>
+            <FLashSalesCard imageSrc={'./assets/firefox.png'}/> */}
+            {returnProducts()}
         </div>   
         <div className='w-full py-10'>
             <button className='block text-white text-xs md:text-md bg-red-600 rounded-md m-auto py-4 px-5'><Link to="/products">View All Products</Link></button>

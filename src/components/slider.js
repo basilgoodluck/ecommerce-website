@@ -6,13 +6,14 @@ import SliderCard from "./slideCard"
 
 const SliderCase = () => {
 
-  
+
   const images = [
     <SliderCard key={0} contentImg={"./assets/developer.webp"} />,
     <SliderCard key={1} contentImg={"./assets/iphone.png"}/>,
     <SliderCard key={2} contentImg={"./assets/teddyBear.webp"}/>
   ]
   const settings = {
+    dots: "false",
     speed: 300,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -22,7 +23,7 @@ const SliderCase = () => {
   };
 
   return (
-    <div >
+    <div className='bg-red-900' >
       <Slider className='bg-black text-white flex justify-between items-center' {...settings}>
         {images.map((image) => (image))}        
       </Slider>

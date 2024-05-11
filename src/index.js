@@ -11,6 +11,7 @@ import Contact from './pages/contact';
 import Products from './pages/products';
 import ErrorPage from './pages/error-page';
 import ProductsData from './api/productsData';
+import HeroProducts from './api/heroProducts';
 
 
 const Layout = () => {
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home />,
         errorElement: <ErrorPage />,
+        loader: HeroProducts,
       },
       {
         path: '/about',
@@ -49,7 +51,7 @@ const router = createBrowserRouter([
         path: '/products',
         element: <Products />,
         loader: ProductsData,
-      }
+      },
     ]
   },
 ]);

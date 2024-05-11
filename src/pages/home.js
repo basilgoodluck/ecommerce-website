@@ -5,16 +5,19 @@ import Categories from '../layouts/categories'
 import BestSellingProducts from '../layouts/bestSellingProducts'
 import OurProducts from '../layouts/ourProducts'
 import NewArrivals from '../layouts/newArrivals'
+import { useLoaderData } from 'react-router-dom'
 
 export default function Home() {
+  const data = useLoaderData()
+  console.log(data)
   
   return (
     <div>
         <Hero /> 
-        <FlashSales /> 
+        <FlashSales products={data} /> 
         <Categories />
-        <BestSellingProducts />
-        <OurProducts />
+        <BestSellingProducts products={data} />
+        <OurProducts products={data} />
         <NewArrivals />  
     </div>
   )

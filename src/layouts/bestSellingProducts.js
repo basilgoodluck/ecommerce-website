@@ -1,7 +1,20 @@
 import React from 'react'
 import BestSellingProductsCard from '../components/bestSellingProductsCard'
 
-function BestSellingProducts() {
+function BestSellingProducts({ products }) {
+
+    const bestProducts = ( )=> {
+        const filteredProducts = products.filter((item, idx)=>{
+            return idx >= 9
+        })
+
+        return filteredProducts.map((item, idx) => {
+            return <BestSellingProductsCard
+                key={idx}
+                imageSrc={item.images[0]}
+            />
+        })
+    }
   return (
     <div className=' w-11/12 md:w-4/5 m-auto mt-[50px] mb-[50px] flex flex-col gap-11 pb-24'>
         <div className='flex flex-col gap-3'>
@@ -18,11 +31,7 @@ function BestSellingProducts() {
         </div>
         <div className=''>
             <div className='flex gap-6 items-center'>
-                <BestSellingProductsCard imageSrc={'./assets/redJacket.png'} />
-                <BestSellingProductsCard imageSrc={'./assets/brownHandBag.png'} />
-                <BestSellingProductsCard imageSrc={'./assets/speaker.png'} />
-                <BestSellingProductsCard imageSrc={'./assets/shelf.png'} />
-                <BestSellingProductsCard imageSrc={'./assets/redJacket.png'} />
+                { bestProducts()}
             </div>
         </div>   
         <div className='w-full'>

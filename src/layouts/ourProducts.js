@@ -2,7 +2,18 @@ import React from 'react'
 import { FaArrowRight, FaArrowLeft} from "react-icons/fa";
 import OurProductsCard from '../components/ourProductsCard';
 
-function OurProducts() {
+function OurProducts({ products }) {
+    const bestProducts = ( )=> {
+        const filteredProducts = products.filter((item, idx)=>{
+            return idx >= 3
+        })
+        return filteredProducts.slice(4, 16).map((item, idx) => (
+            <OurProductsCard
+                key={idx}
+                imageSrc={item.images[0]}
+            />
+        ))
+    }
   return (
     <div className=' w-11/12 md:w-4/5 m-auto mt-[50px] mb-[50px] flex flex-col gap-11 pb-24 '>
         <div className='flex flex-col gap-3'>
@@ -17,19 +28,8 @@ function OurProducts() {
                     <div className='bg-gray-200 rounded-full p-1 cursor-pointer'><FaArrowRight className='text-xl' /></div>
                 </div>
             </div>
-            <div className='flex flex-col gap-6'>
-                <div className='flex items-center gap-6 justify-between '>
-                    <OurProductsCard imageSrc={'./assets/dogFeed.png'} />
-                    <OurProductsCard imageSrc={'./assets/camera.png'} />
-                    <OurProductsCard imageSrc={'./assets/laptop.png'} />
-                    <OurProductsCard imageSrc={'./assets/perfume.png'} />
-                </div>
-                <div className='flex  items-center gap-6 justify-between'>
-                    <OurProductsCard imageSrc={'./assets/mp3Speaker.png'} />
-                    <OurProductsCard imageSrc={'./assets/mercedes.png'} />
-                    <OurProductsCard imageSrc={'./assets/redJacket.png'} />
-                    <OurProductsCard imageSrc={'./assets/keyboard.png'} />
-                </div>
+            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+                {bestProducts()}
             </div> 
         </div>
         <div className='w-full'>

@@ -3,7 +3,7 @@ import { FaStar } from "react-icons/fa";
 
 function FLashSalesCard({imageSrc}) {
   return (
-    <div className='group flex flex-col gap-4 w-56 rounded-xl' style={{flex: '0 0 auto'}}>
+    <div className='group flex flex-col gap-4 w-64 rounded-xl' style={{flex: '0 0 auto'}}>
         <div className='bg-gray-200 p-2 relative h-56 md:h-64 rounded-2xl '>
             <div className='rounded-xl absolute bg-red-600 text-white py-1 px-2 top-2 left-2 text-xs '>-50%</div>
             <div></div>

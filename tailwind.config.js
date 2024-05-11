@@ -16,6 +16,8 @@ module.exports = {
     "./src/layouts/newArrivals.js",
     "./src/components/bestSellingProductsCard.js",
     "./src/pages/error-page.js",
+    "./src/pages/home.js",
+    "./src/pages/about.js",
     "./src/pages/products.js",
 
   ],
