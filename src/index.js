@@ -16,17 +16,42 @@ import MobileNav from './layouts/mobileNav';
 
 
 const Layout = () => {
-  const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false)
-
-  const toggleMobileNav = () => {
-    setIsMobileNavOpen(!isMobileNavOpen)
-  }
-
-  const closeMobileNav = () => {
-    setIsMobileNavOpen(false)
-  }
-
+  const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false);
+  const menuClickedRef = React.useRef(false);
   
+  const toggleMobileNav = React.useCallback(() => {
+    setIsMobileNavOpen(!isMobileNavOpen);
+    menuClickedRef.current = true; // Menu was clicked, set ref to true
+    console.log('toggle');
+  }, [isMobileNavOpen]);
+  
+  const closeMobileNav = () => {
+    setIsMobileNavOpen(false);
+    menuClickedRef.current = false; // Menu is closed, reset ref to false
+    console.log('close');
+  };
+  
+  React.useEffect(() => {
+    const handleBodyClick = (event) => {
+      if (menuClickedRef.current) {
+        return;
+      }
+  
+      if (isMobileNavOpen) {
+        console.log('handleBody');
+      }
+    };
+  
+    document.body.addEventListener('click', handleBodyClick);
+  
+    return () => {
+      document.body.removeEventListener('click', handleBodyClick);
+    };
+  }, [isMobileNavOpen]);
+  
+  // Your JSX and return statement
+  
+
   return (
     <div>
       <Header toggleMobileNav={toggleMobileNav} />
