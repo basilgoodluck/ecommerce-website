@@ -17,6 +17,7 @@ import HeroProducts from './api/heroProducts';
 import MobileNav from './layouts/mobileNav';
 import WishList from './pages/wishlist';
 import Cart from './pages/cart';
+import Product from './layouts/product';
 
 
 const Layout = () => {
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
         path: '/products',
         element: <Products />,
         loader: ProductsData,
+      },
+      {
+        path: '/products/:id',
+        element: <Product />
       },
       {
         path: '/sign-up',
