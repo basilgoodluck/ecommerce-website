@@ -10,9 +10,13 @@ import Blog from './pages/blog';
 import Contact from './pages/contact';
 import Products from './pages/products';
 import ErrorPage from './pages/error-page';
+import SignUp from './pages/sign-up';
+import SignIn from './pages/sign-in';
 import ProductsData from './api/productsData';
 import HeroProducts from './api/heroProducts';
 import MobileNav from './layouts/mobileNav';
+import WishList from './pages/wishlist';
+import Cart from './pages/cart';
 
 
 const Layout = () => {
@@ -92,6 +96,22 @@ const router = createBrowserRouter([
         path: '/products',
         element: <Products />,
         loader: ProductsData,
+      },
+      {
+        path: '/sign-up',
+        element: <SignUp />,
+      },
+      {
+        path: '/sign-in',
+        element: <SignIn />,
+      },
+      {
+        path: '/wishlist',
+        element: <WishList />,
+      },
+      {
+        path: '/cart',
+        element: <Cart />,
       },
     ]
   },

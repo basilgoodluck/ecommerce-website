@@ -48,12 +48,12 @@ function Header({ toggleMobileNav }) {
                 <input type='text' placeholder='What are you looking for ?' className='bg-inherit text-base lg:w-full outline-0'/>
                 <button><CiSearch className='inline md:text-xl lg:text-2xl text-gray-600'/></button>
               </div>
-              <button className=''>
+              <Link to="/wishlist" className=''>
                 <CiHeart className='text-xl md:text-2xl text-red-600'/>
-              </button>
-              <button className=''>
+              </Link>
+              <Link to="/cart" className=''>
                 <AiOutlineShoppingCart className='text-xl md:text-2xl text-amber-500'/>
-              </button>
+              </Link>
               <div className='md:hidden'>
                 <button style={{whiteSpace: "nowrap", cursor:'pointer'}} onClick={toggleMobileNav} id='mobile-nav-bar'><MdKeyboardArrowLeft className='inline'/> Menu</button>
               </div>
