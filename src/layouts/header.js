@@ -57,9 +57,9 @@ function Header({ toggleMobileNav }) {
               <div className='md:hidden'>
                 <button style={{whiteSpace: "nowrap", cursor:'pointer'}} onClick={toggleMobileNav} id='mobile-nav-bar'><MdKeyboardArrowLeft className='inline'/> Menu</button>
               </div>
-              <button className=''>
+              <Link to="/sign-up" className=''>
                   <FaRegUserCircle className='text-xl md:text-2xl text-green-500' />
-              </button>
+              </Link>
             </div>
           </div>
         </div>

@@ -19,6 +19,8 @@ module.exports = {
     "./src/pages/home.js",
     "./src/pages/about.js",
     "./src/pages/products.js",
+    "./src/pages/sign-up.js",
+    "./src/pages/sign-in.js",
 
   ],
   theme: {
