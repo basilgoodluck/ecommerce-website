@@ -2,8 +2,13 @@ import React from 'react'
 
 function Cart() {
   return (
-    <div>
-      <h1>Cart</h1>
+    <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-4">
+        <div>Product</div>
+        <div>Price</div>
+        <div>Quantity</div>
+        <div>Subtotal</div>
+      </div>
     </div>
   )
 }

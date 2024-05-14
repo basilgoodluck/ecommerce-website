@@ -1,9 +1,22 @@
 import React from 'react'
 import { FaStar } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 function OurProductsCard({imageSrc, title, price, rate}) {
+
+    const navigate = useNavigate()
+
+    const id = title
+    const idString = (id)=>{
+        return String(id).toLowerCase().split(" ").join("").slice(0, 10)
+    }
+    const rootId = idString(id)
+
+    function handleClick (){
+        console.log(rootId)
+    }
   return (
-    <div className='group flex flex-col gap-4 w-96' style={{flex:'0 0 23%'}}>
+    <div onClick={handleClick} className='group flex flex-col gap-4 w-96' style={{flex:'0 0 23%'}}>
         <div className='relative h-64 overflow-hidden'>
             <div className='absolute bg-green-600 text-white p-1 text-xs top-2 left-2'>NEW</div>
             <div></div>

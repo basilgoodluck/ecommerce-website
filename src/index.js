@@ -99,7 +99,7 @@ const router = createBrowserRouter([
         loader: ProductsData,
       },
       {
-        path: '/products/:id',
+        path: '/product/:id',
         element: <Product />
       },
       {
