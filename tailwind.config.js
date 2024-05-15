@@ -21,6 +21,8 @@ module.exports = {
     "./src/pages/products.js",
     "./src/pages/sign-up.js",
     "./src/pages/sign-in.js",
+    "./src/pages/cart.js",
+    "./src/pages/billingDetails.js",
 
   ],
   theme: {

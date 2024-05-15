@@ -1,15 +1,18 @@
 import React from 'react'
 import { FaArrowRight, FaArrowLeft} from "react-icons/fa";
 import OurProductsCard from '../components/ourProductsCard';
+// import { useNavigate } from 'react-router-dom';
 
 function OurProducts({ products }) {
+    
     const bestProducts = ( )=> {
         const filteredProducts = products.filter((item, idx)=>{
             return idx >= 3
         })
-        return filteredProducts.slice(4, 16).map((item, idx) => (
+        return filteredProducts.slice(4, 16).map((item) => (
             <OurProductsCard
-                key={idx}
+                product={item}
+                key={item.title}
                 imageSrc={item.images[0]}
             />
         ))

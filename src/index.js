@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import './index.css';
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet, ScrollRestoration } from 'react-router-dom';
 import Header from './layouts/header'
 import Footer from './layouts/footer'
 import Home from './pages/home';
@@ -64,6 +64,7 @@ const Layout = () => {
         toggleMobileNav={toggleMobileNav} 
         isOpen={isMobileNavOpen} 
         closeMobileNav={closeMobileNav} />
+      <ScrollRestoration />
       <Outlet />
       <Footer />
     </div>
