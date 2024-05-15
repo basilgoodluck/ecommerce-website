@@ -14,6 +14,7 @@ module.exports = {
     "./src/layouts/bestSellingProducts.js",
     "./src/layouts/ourProducts.js",
     "./src/layouts/newArrivals.js",
+    "./src/layouts/product.js",
     "./src/components/bestSellingProductsCard.js",
     "./src/pages/error-page.js",
     "./src/pages/home.js",
