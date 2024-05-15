@@ -85,39 +85,48 @@ const router = createBrowserRouter([
       {
         path: '/about',
         element: <About />,
+        errorElement: <ErrorPage />,
       },
       {
         path: '/blog',
         element: <Blog />,
+        errorElement: <ErrorPage />,
       },
       {
         path: '/contact',
         element: <Contact />,
+        errorElement: <ErrorPage />,
       },
       {
         path: '/products',
         element: <Products />,
+        errorElement: <ErrorPage />,
         loader: ProductsData,
       },
       {
         path: '/product/:id',
-        element: <Product />
+        element: <Product />,
+        errorElement: <ErrorPage />,
       },
       {
         path: '/sign-up',
         element: <SignUp />,
+        errorElement: <ErrorPage />,
       },
       {
         path: '/sign-in',
         element: <SignIn />,
+        errorElement: <ErrorPage />,
       },
       {
         path: '/wishlist',
         element: <WishList />,
+        errorElement: <ErrorPage />,
       },
       {
         path: '/cart',
         element: <Cart />,
+        errorElement: <ErrorPage />,
       },
     ]
   },

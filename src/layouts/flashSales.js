@@ -48,12 +48,11 @@ function FlashSales({ products }) {
             <FLashSalesCard imageSrc={'./assets/chair.png'}/>
             <FLashSalesCard imageSrc={'./assets/firefox.png'}/> */}
             {returnProducts()}
-        </div>   
+        </div>
         <div className='w-full py-10'>
             <button className='block text-white text-xs md:text-md bg-red-600 rounded-md m-auto py-4 px-5'><Link to="/products">View All Products</Link></button>
         </div>  
     </div>
   )
 }
-
 export default FlashSales

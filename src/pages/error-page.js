@@ -5,13 +5,12 @@ export default function ErrorPage() {
   console.error(error);
 
   return (
-    <div id="error-page" className="flex flex-col gap-5 justify-center items-center py-10">
-      <h1 className="text-center text-3xl font-black">{error.status}</h1>
-      <p className="text-center text-5xl font-black">404</p>
+    <div id="error-page" className="flex flex-col gap-10 justify-center items-center py-24">
+      <h1 className="text-center text-[4rem] font-medium">404 Not Found</h1>
       <p>
-        <i className="block text-md text-gray-600 text-center">Not Found</i>
+        <i className="block text-md text-gray-600 text-center">You visited page not found. You may go to home Page.</i>
       </p>
-      <p className="bg-pink-600 py-3 px-5 m-auto text-white text-xl rounded-2xl font-semibold" style={{whiteSpace: 'nowrap'}}><Link to="/">Go back to home page</Link></p>
+      <p className="bg-red-600 py-3 px-5 m-auto text-white text-xl rounded-md" style={{whiteSpace: 'nowrap'}}><Link to="/">Back to Home Page</Link></p>
     </div>
   );
 }

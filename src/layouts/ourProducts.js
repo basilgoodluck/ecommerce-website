@@ -12,8 +12,6 @@ function OurProducts({ products }) {
         return filteredProducts.slice(4, 16).map((item) => (
             <OurProductsCard
                 product={item}
-                key={item.title}
-                imageSrc={item.images[0]}
             />
         ))
     }
