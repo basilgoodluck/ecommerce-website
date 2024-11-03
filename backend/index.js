@@ -10,7 +10,7 @@ const app = express()
 app.use(cors());
 app.use(express.json())
 
-const PORT = 3001
+const PORT = process.env.PORT
 
 app.get('/api/products', async (req, res) => {
     try {
