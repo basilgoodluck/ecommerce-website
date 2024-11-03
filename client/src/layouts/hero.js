@@ -1,5 +1,4 @@
 import React from 'react'
-// import Slider from '../components/slider'
 import { MdKeyboardArrowRight } from "react-icons/md";
 import SliderCase from '../components/slider';
 

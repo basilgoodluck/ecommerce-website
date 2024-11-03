@@ -52,10 +52,7 @@ const Layout = () => {
     return () => {
       document.body.removeEventListener('click', handleBodyClick);
     };
-  }, [isMobileNavOpen]);
-  
-  // Your JSX and return statement
-  
+  }, [isMobileNavOpen]);  
 
   return (
     <div>

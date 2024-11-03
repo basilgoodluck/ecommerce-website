@@ -15,7 +15,7 @@ function Product() {
   }, [location.state])
 
   if (!details) {
-    return <div>Loading...</div>; // Render a loading indicator while details are being fetched
+    return <div>Loading...</div>; 
   }
 
   return (
@@ -93,14 +93,13 @@ function Product() {
             </div>
             <div className='border border-gray-400 p-3 rounded-sm '>
               <div className='flex items-center gap-6 py-4'>
-                //icon
+                
                 <div>
                   <h5 className='text-xl font-medium'>Free Delivery</h5>
                   <p className='underline underline-offset-2'>Enter your postal code for Delivery Availability</p>
                 </div>
               </div>
               <div className='flex items-center gap-6 py-4'>
-                //icon
                 <div>
                   <h5 className='text-xl font-medium'>Return Delivery</h5>
                   <p className=''>Free 30 Days Delivery Returns, <span className='underline underline-offset-2'>Details</span></p>
