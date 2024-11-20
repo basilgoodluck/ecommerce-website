@@ -1,7 +1,6 @@
 import React from 'react'
 import { FaArrowRight, FaArrowLeft} from "react-icons/fa";
-import OurProductsCard from '../components/ourProductsCard';
-// import { useNavigate } from 'react-router-dom';
+import ProductCard from '../components/productCard'
 
 function OurProducts({ products }) {
     
@@ -10,7 +9,7 @@ function OurProducts({ products }) {
             return idx >= 3
         })
         return filteredProducts.slice(4, 16).map((item) => (
-            <OurProductsCard
+            <ProductCard
                 product={item}
             />
         ))

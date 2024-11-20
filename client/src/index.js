@@ -13,7 +13,6 @@ import ErrorPage from './pages/error-page';
 import SignUp from './pages/sign-up';
 import SignIn from './pages/sign-in';
 import ProductsData from './api/productsData';
-import HeroProducts from './api/heroProducts';
 import MobileNav from './layouts/mobileNav';
 import WishList from './pages/wishlist';
 import Cart from './pages/cart';
@@ -77,7 +76,7 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home />,
         errorElement: <ErrorPage />,
-        loader: HeroProducts,
+        loader: ProductsData,
       },
       {
         path: '/about',

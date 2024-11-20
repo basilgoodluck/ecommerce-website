@@ -11,7 +11,7 @@ function Footer() {
     <div className='w-full bg-black text-white'>
         <div className='w-11/12 md:w-4/5 m-auto flex flex-wrap flex-col md:flex-row gap-11 md:gap-8 md:justify-between py-16'>
             <div className='flex flex-col gap-4'>
-                <h3 className='text-2xl font-bold'>E-commerce App</h3>
+                <h3 className='text-2xl font-bold'>Nobledev</h3>
                 <h4 className='text-xl font-semibold'>Subscribe</h4>
                 <p className='text-gray-400 text-md'>Get 10% off your first order</p>
                 <div>

@@ -15,3 +15,10 @@ body{
     scroll-behavior: smooth;
     overflow-x: hidden;
 }
+.scrollbar-x-none::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-x-none {
+    scrollbar-width: none; /* Firefox */
+}

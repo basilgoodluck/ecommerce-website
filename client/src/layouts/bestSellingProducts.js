@@ -1,20 +1,30 @@
-import React from 'react'
-import BestSellingProductsCard from '../components/bestSellingProductsCard'
+import React from 'react';
+import { useState, useEffect } from 'react';
+import { useLoaderData } from 'react-router-dom';
+import ProductCard from '../components/productCard'
 
-function BestSellingProducts({ products }) {
+function BestSellingProducts() {
+    const [products, setProducts] = useState([]);
+    const data = useLoaderData();
 
-    const bestProducts = ( )=> {
-        const filteredProducts = products.filter((item, idx)=>{
-            return idx >= 9
-        })
+    useEffect(() => {
+        if (Array.isArray(data)) {
+            setProducts(data);
+        }
+    }, [data]);
 
-        return filteredProducts.map((item, idx) => {
-            return <BestSellingProductsCard
+
+    const bestProducts = () => {
+        const filteredProducts = products.filter((item, idx) => idx >= 7)
+
+        filteredProducts.map((item, idx) => (
+            <ProductCard 
                 key={idx}
-                imageSrc={item.images[0]}
+                product={item} 
             />
-        })
+        ))
     }
+    
   return (
     <div className=' w-11/12 md:w-4/5 m-auto mt-[50px] mb-[50px] flex flex-col gap-11 pb-24'>
         <div className='flex flex-col gap-3'>
@@ -31,7 +41,7 @@ function BestSellingProducts({ products }) {
         </div>
         <div className=''>
             <div className='flex gap-6 items-center'>
-                { bestProducts()}
+                { bestProducts}
             </div>
         </div>   
         <div className='w-full'>

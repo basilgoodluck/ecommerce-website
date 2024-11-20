@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react";
 import { useLoaderData } from 'react-router-dom';
-import OurProductsCard from "../components/ourProductsCard";
+import ProductCard from "../components/productCard";
 
 function Products() {
     const [products, setProducts] = useState([]);
     const data = useLoaderData();
 
     useEffect(() => {
-        // Assuming data is an array of products
         if (Array.isArray(data)) {
             setProducts(data);
         }
@@ -23,11 +22,11 @@ function Products() {
                 <div className=''>
                     <h1 className='text-black text-xl md:text-2xl font-medium' style={{whiteSpace:'nowrap'}}>Explore Our Products</h1>
                 </div>
-                <div className="grid gap-10 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {products.map((product, index) => (
-                        <OurProductsCard key={index} product={product} />
+                <div className="grid gap-x-5 gap-y-12 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                    {products.map((product) => (
+                        <ProductCard key={product._id} product={product} />
                     ))}                          
-                </div>           
+                </div>          
             </div> 
         </div>
     );
