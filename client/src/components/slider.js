@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
-// import img1 from "../../src/promo/promo_headset.png";
-// import img2 from "../../src/promo/promo_phones.png";
-// import img3 from "../../src/promo/promo_wristwatch.png";
 
+import React, { useState, useEffect, useRef } from 'react';
+import { MdArrowForwardIos } from "react-icons/md";
+import { MdArrowBackIosNew } from "react-icons/md";
 
 const InfiniteSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,64 +17,75 @@ const InfiniteSlider = () => {
       id: 1,
       title: "High-Quality Headset",
       description: "Experience immersive sound with our state-of-the-art headset.",
-      image: "../../src/promo/promo_headset.png"
+      image: "./assets/promo-headset.png",
     },
     {
       id: 2,
       title: "Latest Smartphones",
       description: "Stay connected with the latest technology in your hands.",
-      image: "../../src/promo/promo_phones.png"
+      image: "./assets/promo-phones.png",
     },
     {
       id: 3,
       title: "Smart Wristwatch",
       description: "Track your fitness and manage your time in style.",
-      image: "../../src/promo/promo_wristwatch.png"
-    }
+      image: "./assets/promo-wristwatch.png",
+    },
   ];
-  
 
-  const extendedItems = [...promo_items, ...promo_items, ...promo_items];
+  const [extendedItems, setExtendedItems] = useState([...promo_items, ...promo_items]);
+
   const slideWidth = 100;
   const transitionTime = 500;
-  const autoSlideInterval = 3000;
+  const autoSlideInterval = 2500;
   const swipeThreshold = 50;
 
   useEffect(() => {
+    if (currentIndex <= 0) {
+      setExtendedItems((prevItems) => [...promo_items, ...prevItems]);
+      setCurrentIndex((prev) => prev + promo_items.length);
+    } else if (currentIndex >= extendedItems.length - 1) {
+      setExtendedItems((prevItems) => [...prevItems, ...promo_items]);
+    }
+  }, [currentIndex, extendedItems]);
+
+  useEffect(() => {
     let autoSlide;
-    if (!isPaused && !isDragging) {
+    if (isPaused && !isDragging) {
       autoSlide = setInterval(() => {
+        if (isTransitioning) return
         handleNext();
-      }, autoSlideInterval);
+      }, autoSlideInterval, handleNext);
     }
     return () => clearInterval(autoSlide);
-  }, [currentIndex, isPaused, isDragging]);
+  }, [isPaused, isDragging, isTransitioning]);
 
   const handleNext = () => {
-    if (!isTransitioning && !isDragging) {
-      setIsTransitioning(true);
-      setCurrentIndex(prev => prev + 1);
-    }
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev + 1);
   };
-
+  
   const handlePrev = () => {
-    if (!isTransitioning && !isDragging) {
-      setIsTransitioning(true);
-      setCurrentIndex(prev => prev - 1);
-    }
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev - 1);
   };
+  
 
   const handleTransitionEnd = () => {
     setIsTransitioning(false);
-    if (currentIndex >= promo_items.length) {
-      setCurrentIndex(0);
-    } else if (currentIndex < 0) {
-      setCurrentIndex(promo_items.length - 1);
+    if (currentIndex >= extendedItems.length - promo_items.length) {
+      // setIsTransitioning(false);
+      setCurrentIndex(currentIndex - promo_items.length);
+    } else if (currentIndex < promo_items.length) {
+      // setIsTransitioning(false);
+      setCurrentIndex(currentIndex + promo_items.length);
     }
   };
 
-  // Updated touch and mouse handlers
   const handleDragStart = (e) => {
+    if (isTransitioning) return;
     setIsPaused(true);
     setIsDragging(true);
     const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
@@ -84,25 +94,22 @@ const InfiniteSlider = () => {
   };
 
   const handleDragMove = (e) => {
-    if (!isDragging) return;
-    e.preventDefault(); 
+    if (!isDragging || isTransitioning) return;
+    e.preventDefault();
     const pageX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
     setCurrentX(pageX);
   };
 
   const handleDragEnd = (e) => {
     if (!isDragging) return;
-    
     const diff = currentX - startX;
-    
     if (Math.abs(diff) > swipeThreshold) {
-      if (diff > 0) {
-        handlePrev();
-      } else {
+      if (diff < 0) {
         handleNext();
+      } else {
+        handlePrev();
       }
     }
-    
     setIsDragging(false);
     setIsPaused(false);
     setStartX(null);
@@ -110,31 +117,31 @@ const InfiniteSlider = () => {
   };
 
   const getTranslateX = () => {
-    let baseTranslate = -(currentIndex + promo_items.length) * slideWidth;
-    
+    let baseTranslate = -currentIndex * slideWidth;
     if (isDragging && startX !== null && currentX !== null) {
-      const dragOffset = ((currentX - startX) / window.innerWidth) * 100;
+      const dragOffset = ((currentX - startX) / window.innerWidth) * 50; // Reduce factor
       baseTranslate += dragOffset;
     }
-    
     return baseTranslate;
   };
+  
 
-  const actualIndex = ((currentIndex % promo_items.length) + promo_items.length) % promo_items.length;
+  const actualIndex = (currentIndex + promo_items.length) % promo_items.length;
+
 
   return (
     <div className="relative w-full overflow-hidden">
       <button 
         onClick={handlePrev}
-        className="absolute w-6 h-6 flex justify-center items-center left-0 top-1/2 z-10 -translate-y-1/2 bg-white/80 p-4 rounded-full shadow-lg hover:bg-white transition-colors"
+        className="absolute w-6 h-6 flex justify-center items-center left-0 top-1/2 z-10 -translate-y-1/2  rounded-full shadow-lg transition-colors"
       >
-        ←
+        <MdArrowBackIosNew className='text-white text-3xl' />
       </button>
       <button 
         onClick={handleNext}
-        className="absolute w-6 h-6 flex justify-center items-center right-0 top-1/2 z-10 -translate-y-1/2 bg-white/80 p-4 rounded-full shadow-lg hover:bg-white transition-colors"
+        className="absolute w-6 h-6 flex justify-center items-center right-0 top-1/2 z-10 -translate-y-1/2  rounded-full shadow-lg text-white transition-colors"
       >
-        →
+        <MdArrowForwardIos className='text-white text-3xl' />
       </button>
 
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex gap-2">
@@ -157,8 +164,9 @@ const InfiniteSlider = () => {
         style={{
           transform: `translateX(${getTranslateX()}%)`,
           transition: isTransitioning && !isDragging 
-            ? `transform ${transitionTime}ms ease-out` 
+            ? `transform ${transitionTime}ms cubic-bezier(0.4, 0.0, 0.2, 1)` 
             : 'none'
+
         }}
         onTransitionEnd={handleTransitionEnd}
         onMouseDown={handleDragStart}
@@ -175,12 +183,12 @@ const InfiniteSlider = () => {
             className="flex-shrink-0 w-full h-64 flex items-center justify-center bg-black select-none text-white px-10"
             style={{ width: `${slideWidth}%` }}
           >
-            <div className="text-xs font-bold">
-              <div>
-                <p>{item.title}</p>
-                <p className='font-normal'>{item.description}</p>
+            <div className="text-xs font-bold flex gap-1 items-center">
+              <div className=''>
+                <p className='text-xs'>{item.title}</p>
+                <p className='font-normal text-[7px]'>{item.description}</p>
               </div>
-              <div><img src={item.image} /></div>
+              <div className='w-4/5'><img src={item.image} alt='sdiofds' /></div>
             </div>
           </div>
         ))}
@@ -189,4 +197,4 @@ const InfiniteSlider = () => {
   );
 };
 
-export default InfiniteSlider;
+export default InfiniteSlider

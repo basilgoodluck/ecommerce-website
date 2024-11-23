@@ -4,7 +4,7 @@ import ProductCard from '../components/productCard'
 
 function OurProducts({ products }) {
     
-    const bestProducts = ( )=> {
+    const bestProducts = ()=> {
         const filteredProducts = products.filter((item, idx)=>{
             return idx >= 3
         })

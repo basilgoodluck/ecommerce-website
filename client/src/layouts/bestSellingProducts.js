@@ -8,22 +8,11 @@ function BestSellingProducts() {
     const data = useLoaderData();
 
     useEffect(() => {
-        if (Array.isArray(data)) {
-            setProducts(data);
+        const filteredProducts = data.filter((item, idx) => item.inStock === false && idx > 4)
+        if (Array.isArray(filteredProducts)) {
+            setProducts(filteredProducts);
         }
     }, [data]);
-
-
-    const bestProducts = () => {
-        const filteredProducts = products.filter((item, idx) => idx >= 7)
-
-        filteredProducts.map((item, idx) => (
-            <ProductCard 
-                key={idx}
-                product={item} 
-            />
-        ))
-    }
     
   return (
     <div className=' w-11/12 md:w-4/5 m-auto mt-[50px] mb-[50px] flex flex-col gap-11 pb-24'>
@@ -40,8 +29,10 @@ function BestSellingProducts() {
             </div>
         </div>
         <div className=''>
-            <div className='flex gap-6 items-center'>
-                { bestProducts}
+            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+                {products.map((product, idx) => (
+            <ProductCard key={product._id} product={product} />
+        ))}
             </div>
         </div>   
         <div className='w-full'>
