@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { getProducts } from './database/mongodb.js';
+import { getProducts } from './config/mongodb.js';
 import dotenv from 'dotenv';
 
 dotenv.config()

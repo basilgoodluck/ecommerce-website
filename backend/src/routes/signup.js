@@ -34,7 +34,7 @@ router.post("/sign-up", async (req, res) => {
         });
 
         const token = jwt.sign(
-            {userId: result.insertId.toString()},
+            {userId: result.insertedId.toString()},
             process.env.JWT_KEY,
             {expiresIn: "24h"}
 
@@ -43,7 +43,7 @@ router.post("/sign-up", async (req, res) => {
         res.status(201).json({
             token,
             user: {
-                id: result.insertId,
+                id: result.insertedId,
                 name,
                 email
             }
