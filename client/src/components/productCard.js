@@ -16,7 +16,6 @@ function ProductCard({ product }) {
     const rootId = idString(id);
 
     function handleClick() {
-        console.log(rootId);
         navigate(`/product/${rootId}`, {
             state: {
                 item: product,

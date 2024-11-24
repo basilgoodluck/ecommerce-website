@@ -4,7 +4,6 @@ import jsonwebtoken from "jsonwebtoken";
 import { connect } from '../config/mongodb.js';
 
 const router = Router()
-const jwt = jsonwebtoken()
 
 router.post("/sign-in", async (req, res) => {
     try {
@@ -23,7 +22,7 @@ router.post("/sign-in", async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        const token = jwt.sign(
+        const token = jsonwebtoken.sign(
             {userId: user._id.toString()},
             process.env.JWT_KEY,
             {expiresIn: "24h"}
@@ -44,4 +43,4 @@ router.post("/sign-in", async (req, res) => {
     }
 })
 
-export {router}
+export default router

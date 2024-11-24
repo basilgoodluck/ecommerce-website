@@ -5,7 +5,6 @@ import { connect } from '../config/mongodb.js';
 import validatorUser from '../utils/validators.js';
 
 const router = Router()
-const jwt = jsonwebtoken()
 
 router.post("/sign-up", async (req, res) => {
     try {
@@ -33,7 +32,7 @@ router.post("/sign-up", async (req, res) => {
             updatedAt: new Date()
         });
 
-        const token = jwt.sign(
+        const token = jsonwebtoken.sign(
             {userId: result.insertedId.toString()},
             process.env.JWT_KEY,
             {expiresIn: "24h"}
@@ -56,4 +55,4 @@ router.post("/sign-up", async (req, res) => {
 
 })
 
-export {router}
+export default router

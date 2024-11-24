@@ -13,10 +13,12 @@ import ErrorPage from './pages/error-page';
 import SignUp from './pages/sign-up';
 import SignIn from './pages/sign-in';
 import ProductsData from './api/productsData';
+import GetPromoItems from './api/promoItems';
 import MobileNav from './layouts/mobileNav';
 import WishList from './pages/wishlist';
 import Cart from './pages/cart';
 import Product from './layouts/product';
+import InfiniteSlider from './components/slider';
 
 
 const Layout = () => {
@@ -124,6 +126,12 @@ const router = createBrowserRouter([
         element: <Cart />,
         errorElement: <ErrorPage />,
       },
+      {
+        path: "/promo-items",
+        element: <InfiniteSlider />,
+        errorElement: <ErrorPage />,
+        loader: GetPromoItems
+      }
     ]
   },
 ]);

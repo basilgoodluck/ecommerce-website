@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MdArrowForwardIos } from "react-icons/md";
 import { MdArrowBackIosNew } from "react-icons/md";
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
 const InfiniteSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -11,27 +12,39 @@ const InfiniteSlider = () => {
   const [currentX, setCurrentX] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef(null);
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([])
 
-  const promo_items = [
-    {
-      id: 1,
-      title: "High-Quality Headset",
-      description: "Experience immersive sound with our state-of-the-art headset.",
-      image: "./assets/promo-headset.png",
-    },
-    {
-      id: 2,
-      title: "Latest Smartphones",
-      description: "Stay connected with the latest technology in your hands.",
-      image: "./assets/promo-phones.png",
-    },
-    {
-      id: 3,
-      title: "Smart Wristwatch",
-      description: "Track your fitness and manage your time in style.",
-      image: "./assets/promo-wristwatch.png",
-    },
-  ];
+  const data = useLoaderData();
+
+  useEffect(() => {
+    if(Array.isArray(data)){
+      setProducts(data)
+    }
+  }, [data])
+
+  const promo_items = Array.from(products)
+  console.log(data)
+
+
+  // if(!product || !product.imageURL || product.imageURL.length === 0){
+  //   return null;
+  // }
+
+  // const id = product.title
+  // const idString = (id) => {
+  //   return String(id).toLowerCase().split(" ").join("-").slice(0, 10)
+  // }
+
+  // const rootId = idString(id)
+  // function handleClick() {
+  //   navigate(`/product/${rootId}`, {
+  //     state: {
+  //       item: product,
+  //     }
+  //   })
+  // }
+  // const promo_items = 
 
   const [extendedItems, setExtendedItems] = useState([...promo_items, ...promo_items]);
 
@@ -179,7 +192,7 @@ const InfiniteSlider = () => {
       >
         {extendedItems.map((item, index) => (
           <div
-            key={`${item.id}-${index}`}
+            key={`${item._id}-${index}`}
             className="flex-shrink-0 w-full h-64 flex items-center justify-center bg-black select-none text-white px-10"
             style={{ width: `${slideWidth}%` }}
           >
@@ -188,7 +201,7 @@ const InfiniteSlider = () => {
                 <p className='text-xs'>{item.title}</p>
                 <p className='font-normal text-[7px]'>{item.description}</p>
               </div>
-              <div className='w-4/5'><img src={item.image} alt='sdiofds' /></div>
+              <div className='w-4/5'><img src={item.imageURL} alt='sdiofds' /></div>
             </div>
           </div>
         ))}

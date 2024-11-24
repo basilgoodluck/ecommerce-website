@@ -1,11 +1,15 @@
-
-
 export default async function ProductsData() {
 
-    const data = await fetch("https://ecommerce-website-reb9.onrender.com/api/products")
-        .then(res => res.json())
-        .then(json => json)
-
+    try{
+        const response = await fetch("https://ecommerce-website-reb9.onrender.com/api/products")
+        if(!response.ok){
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        const data = await response.json()
         return data
+    }
+    catch(error){
+        throw error
+    }
 }
 

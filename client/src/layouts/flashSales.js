@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
 import ProductCard from '../components/productCard';
-import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 import { FaArrowLeft } from 'react-icons/fa';
+import PrimaryBtn from '../components/primaryBtn';
 
 function FlashSales() {
     const [products, setProducts] = useState([]);
@@ -57,9 +57,7 @@ function FlashSales() {
                 </div>
             ))}
         </div>
-        <div className='w-full py-10'>
-            <button className='block text-white text-xs md:text-md bg-red-600 rounded-md m-auto py-4 px-5'><Link to="/products">View All Products</Link></button>
-        </div>  
+        <PrimaryBtn content={`View All Products`} />  
     </div>
   )
 }

@@ -10,7 +10,6 @@ function Product() {
   useEffect(() => {
     if (location.state && location.state.item) {
       setDetails(location.state.item)
-      console.log(location.state.item)
     }
   }, [location.state])
 
@@ -25,7 +24,7 @@ function Product() {
           <div className='flex gap-10'>
             {details.images && details.images.length > 0 && (
               <div className='flex flex-col gap-8'>
-                <img src={details.images[0]} alt={details.title} className='w-24' />
+                <img src={details.imageURL} alt={details.title} className='w-24' />
                 <img src={details.images[0]} alt={details.title} className='w-24' />
                 <img src={details.images[0]} alt={details.title} className='w-24' />
                 <img src={details.images[0]} alt={details.title} className='w-24' />
