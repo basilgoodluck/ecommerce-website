@@ -24,6 +24,7 @@ const auth = async (req, res, next) => {
   
       req.user = user;
       req.userId = user._id;
+      req.userEmail = user.email
       next();
     } catch (error) {
       res.status(401).json({ message: 'Please authenticate' });

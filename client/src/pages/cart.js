@@ -1,43 +1,51 @@
 import React from 'react'
 import { RiArrowUpSLine } from "react-icons/ri";
 import { RiArrowDownSLine } from "react-icons/ri";
+import { useCart } from '../hooks/cartContext';
 
 function Cart() {
+  const { cart, increaseQuantity, decreaseQuantity, removeFromCart, clearCart } = useCart();
+  // console.log(cart)
   return (
-    <div className="flex flex-col gap-10 w-11/12 m-auto lg:w-4/5 py-10">
+    <>
+    <h1 className='text-xl font-bold px-4 mx-auto mt-5'>Your Cart</h1>
+    {cart.length === 0 ? (
+      <p className='text-center font-bold text-3xl text-red-600 p-6'>Oops, Your Cart is empty!</p>
+    ):(
+      <div className="flex flex-col gap-10 w-11/12 m-auto lg:w-4/5 py-10">
       <div className="grid grid-cols-4 shadow shadow-gray-400 py-6 px-4">
         <div>Product</div>
         <div>Price</div>
         <div>Quantity</div>
         <div>Subtotal</div>
       </div>
-      <div className="grid grid-cols-4 shadow shadow-gray-400 py-4 px-4 items-center">
-        <div className="flex gap-4 items-center">
-          <img src="./assets/boot.png" alt="dhsfhasdo" className="w-16 object-cover"/>
-          <p >Football boot</p>
+    {cart.map((item) => (
+      <div className="grid grid-cols-4 gap-x-11 shadow shadow-gray-400 py-4 px-4 items-center">
+        <div className="flex flex-col ">
+          <p >{item.title}</p>
         </div>
-        <div>$900</div>
+        <div>${item.price}</div>
         <div>
           <div className="w-fit border border-gray-400 p-3 flex items-center gap-2">
-            4 
-            <div className="flex flex-col justify-between ">
-              <button>
+            {item.quantity}
+            <div className="flex flex-col justify-between gap-8">
+              <button onClick={() => increaseQuantity(item._id)}>
                 <RiArrowUpSLine />
               </button>
-              <button>
+              <button onClick={() => decreaseQuantity(item._id)}>
                 <RiArrowDownSLine />
               </button>
             </div>
           </div>
         </div>
         <div>$900</div>
-      </div>
+      </div>))}
       <div className='flex justify-between items-center '>
          <button className='px-6 py-3 border border-gray-200'>
            Return To Shop
          </button>
-         <button className='px-6 py-3 border border-gray-200'>
-          Return To Cart
+         <button onClick={clearCart} className='px-6 py-3 border border-gray-200'>
+          Clear Cart
          </button>
       </div>
       <div className='flex justify-between flex-col md:flex-row w-full gap-10'>
@@ -65,6 +73,8 @@ function Cart() {
         </div>
       </div>
     </div>
+    )}
+    </>
   )
 }
 

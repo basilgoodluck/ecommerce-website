@@ -49,7 +49,7 @@ function SignUp({ setAuth }) {
 
         setIsLoading(true)
         try{
-            const response = await fetch("https://ecommerce-website-reb9.onrender.com/api/sign-up", {
+            const response = await fetch("https://ecommerce-website-reb9.onrender.com/api/auth/sign-up", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"

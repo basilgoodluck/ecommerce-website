@@ -51,7 +51,7 @@ function Header({ toggleMobileNav }) {
               <Link to="/wishlist" className=''>
                 <CiHeart className='text-xl md:text-2xl text-red-600'/>
               </Link>
-              <Link to="/cart" className=''>
+              <Link to='/users/user/cart' className=''>
                 <AiOutlineShoppingCart className='text-xl md:text-2xl text-amber-500'/>
               </Link>
               <Link to="/sign-up" className=''>

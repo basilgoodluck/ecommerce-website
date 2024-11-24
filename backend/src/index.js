@@ -14,7 +14,7 @@ app.use(express.json())
 app.use("/api/auth/sign-up", SignUp)
 app.use("/api/auth/sign-in", SignIn)
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 3005
 
 app.get('/api/products', async (req, res) => {
     try {
@@ -29,11 +29,10 @@ app.get('/api/products', async (req, res) => {
 app.get("/api/promo-products", async (req, res) => {
     try{
         const products = await getProducts();
-        const limit = parseInt(req.query.limit) || 5
-        const shuffledProductss = products.sort(() => Math.random() - 0.5)
+        const shuffledProducts = products.sort(() => Math.random() - 0.5)
 
-        const data = shuffledProductss.slice(0, limit)
-        res.json(data)
+        const data = shuffledProducts.slice(0, 5)
+        res.status(200).json(data)
     }
     catch (error){
         throw error

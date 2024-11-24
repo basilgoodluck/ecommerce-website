@@ -67,7 +67,7 @@ function ProductCard({ product }) {
                     <p>{'('+product.reviews.count+')'}</p>
                 </div>
                 <div className="flex gap-3 ">
-                    <p className='text-xs'>{(product.description).slice(0, 29)+'...'}</p>
+                    <p className='text-xs'>{(product.description).slice(0, 40)+'...'}</p>
                 </div>
             </div>
         </div>

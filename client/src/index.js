@@ -19,6 +19,7 @@ import WishList from './pages/wishlist';
 import Cart from './pages/cart';
 import Product from './layouts/product';
 import InfiniteSlider from './components/slider';
+import { CartProvider } from './hooks/cartContext';
 
 
 const Layout = () => {
@@ -27,14 +28,12 @@ const Layout = () => {
   
   const toggleMobileNav = React.useCallback(() => {
     setIsMobileNavOpen(!isMobileNavOpen);
-    menuClickedRef.current = true; // Menu was clicked, set ref to true
-    console.log('toggle');
+    menuClickedRef.current = true; 
   }, [isMobileNavOpen]);
   
   const closeMobileNav = () => {
     setIsMobileNavOpen(false);
-    menuClickedRef.current = false; // Menu is closed, reset ref to false
-    console.log('close');
+    menuClickedRef.current = false; 
   };
   
   React.useEffect(() => {
@@ -117,12 +116,12 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: '/wishlist',
+        path: '/users/user/wishlist',
         element: <WishList />,
         errorElement: <ErrorPage />,
       },
       {
-        path: '/cart',
+        path: '/users/user/cart',
         element: <Cart />,
         errorElement: <ErrorPage />,
       },
@@ -138,6 +137,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
   </React.StrictMode>
 );
