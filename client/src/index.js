@@ -116,7 +116,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: '/users/user/wishlist',
+        path: '/wishlist',
         element: <WishList />,
         errorElement: <ErrorPage />,
       },

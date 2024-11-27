@@ -1,6 +1,8 @@
-import React from 'react'
+import React from 'react';
+import { useWish } from '../hooks/wishlistContext';
 
 function WishList() {
+  const {wish} = useWish()
   return (
     <div className=' w-11/12 md:w-4/5 m-auto mt-[50px] mb-[50px] flex flex-col gap-11 py-10 '>
         <div className='flex flex-col gap-11 py-10'>
@@ -11,11 +13,11 @@ function WishList() {
                 </div>
             </div>
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-10'>
-              <h1>sdj</h1>
-              <h1>sdj</h1>
-              <h1>sdj</h1>
-              <h1>sdj</h1>
-              <h1>sdj</h1>
+              {wish?.map((item) => (
+                <>
+                  {item.title}
+                </>
+              ))}
             </div> 
         </div>
         <div className='flex flex-col gap-11 py-10'>

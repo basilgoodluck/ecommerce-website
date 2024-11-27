@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { json, Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function SignUp({ setAuth }) {
     const navigate = useNavigate();
@@ -60,6 +60,7 @@ function SignUp({ setAuth }) {
             const data = await response.json()
 
             if(response.ok){
+                console.log("sumiii")
                 localStorage.setItem("token", data.token)
                 setAuth(true)
                 navigate("/")

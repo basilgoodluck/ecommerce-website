@@ -3,14 +3,18 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 import { CiHeart } from 'react-icons/ci';
 import { useCart } from '../hooks/cartContext';
+import LoadingSpinner from './loader';
+import { useWish } from '../hooks/wishlistContext';
 
 function Product() {
   const [details, setDetails] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [fav, setFav] = useState(false)
   const { addToCart } = useCart()
-  const [productCount, setProductCount] = useState(0)
+  const { toggleWish } = useWish()
+  const [productCount, setProductCount] = useState(1)
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.state && location.state.item) {
@@ -19,9 +23,12 @@ function Product() {
   }, [location.state]);
 
   if (!details) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
+  function handleAddWish () {
+
+  }
   
 
   const StarRating = ({ rating }) => {
@@ -64,26 +71,26 @@ function Product() {
     setProductCount((prev) => prev + 1)    
   }
   const decProductCount = () => {
-    if(productCount === 0) return
+    if(productCount === 1) return
     setProductCount((prev) => prev - 1)    
   }
   const handleCountChange = (e) => {
     const value = e.target.value
-    if(/[^0-9]/g.test(value)){
-      if(value === 0) return
+    if(/[^1-9]/g.test(value)){
+      if(value === 1) return
     }
   
-    if(value === "" || 0){
-      setProductCount(parseInt(0))
+    if(value === "" || 1){
+      setProductCount(parseInt(1))
     }
-    if (parseInt(value, 10) >= 0) {
+    if (parseInt(value, 10) >= 1) {
       setProductCount(parseInt(value)); 
     }
   };
 
-  // function handleAddToCart () {
-  //   addToCart(location.state.item)
-  // }
+  function handleReturn () {
+    return
+  }
   
 
   return (
@@ -110,7 +117,7 @@ function Product() {
                   <StarRating rating={details.reviews.rating} />
                 </div>
                 <p className="text-sm text-gray-400">
-                  ({details.reviews.count} Reviews)
+                  ({details.reviews.count } Reviews)
                 </p>
               </div>
               <div>
@@ -124,16 +131,16 @@ function Product() {
               <div className="flex gap-4 items-center text-2xl py-6">
                 <div className="flex gap-4">
                   <div className=" min-w-fit flex border border-gray-400 rounded-md overflow-hidden">
-                    <button onClick={decProductCount} className={`border-r text-white border-gray-200 w-10 ${parseInt(productCount) === 0 ? "bg-gray-200" : "bg-red-600"}`}>-</button>
-                    <input onChange={handleCountChange} value={parseInt(productCount)} className="text-center w-20 h-full border-0 outline-none" />
-                    <button onClick={incProductCount} className="bg-red-600 text-white border-l border-gray-400 w-10 ">+</button>
+                    <button onClick={decProductCount} className={`border-r text-white border-gray-200 w-10 ${parseInt(productCount) === 1 ? "bg-gray-200" : "bg-red-600"}`}>-</button>
+                    <input onChange={details.inStock ? handleCountChange : handleReturn} value={parseInt(productCount)} className="text-center w-20 h-full border-0 outline-none" />
+                    <button disabled={!details.inStock} onClick={incProductCount} className={`${details.inStock ? "bg-red-600":"bg-gray-400"} text-white border-l border-gray-400 w-10 `}>+</button>
                   </div>
                   <div className='w-full'>
-                      <button className='block text-white text-xs md:text-md bg-red-600 rounded-md m-auto py-4 px-5' onClick={() => addToCart(location.state.item)}>Add to cart</button>
+                      <button disabled={!details.inStock} className={`${details.inStock ? "bg-red-600":"bg-gray-400"} block text-white text-xs md:text-md rounded-md m-auto py-4 px-5`} onClick={() => addToCart(location.state.item)}>Add to cart</button>
                   </div>
-                  <div className="flex justify-center items-center border border-gray-400 rounded-md">
+                  <button onClick={} className="flex justify-center items-center border border-gray-400 rounded-md">
                     <CiHeart className="text-4xl" />
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>

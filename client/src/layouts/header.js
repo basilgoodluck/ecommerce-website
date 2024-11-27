@@ -6,8 +6,11 @@ import { CiSearch } from "react-icons/ci";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useCart } from '../hooks/cartContext';
+import { MdFavorite } from "react-icons/md";
 
-function Header({ toggleMobileNav }) {  
+function Header({ toggleMobileNav }) {
+  const { cart } = useCart()  
   const blackH = useRef(0);
   const [hei, setHei] = useState(0);
 
@@ -48,14 +51,16 @@ function Header({ toggleMobileNav }) {
                 <input type='text' placeholder='What are you looking for ?' className='bg-inherit text-base lg:w-full outline-0'/>
                 <button><CiSearch className='inline md:text-xl lg:text-2xl text-gray-600'/></button>
               </div>
-              <Link to="/wishlist" className=''>
-                <CiHeart className='text-xl md:text-2xl text-red-600'/>
+              <Link to="/wishlist" className='relative'>
+                <MdFavorite className='text-xl md:text-2xl text-red-600 font-bold'/>
+                <div className='absolute bg-white text-[8px] text-red-600 font-semibold rounded-full w-3 h-3 flex justify-center items-center p-1 left-0 -top-1'>{cart.length}</div>
               </Link>
-              <Link to='/users/user/cart' className=''>
-                <AiOutlineShoppingCart className='text-xl md:text-2xl text-amber-500'/>
+              <Link to='/users/user/cart' className='relative'>
+                <div className='absolute bg-red-600 text-[8px] text-white font-semibold rounded-full w-3 h-3 flex justify-center items-center p-1 left-0 -top-1'>{cart.length}</div>
+                <AiOutlineShoppingCart className='text-xl md:text-2xl text-black'/>
               </Link>
               <Link to="/sign-up" className=''>
-                  <FaRegUserCircle className='text-xl md:text-2xl text-green-500' />
+                  <FaRegUserCircle className='text-xl md:text-2xl text-black' />
               </Link>
               <div className='md:hidden'>
                 <button className='text-sm' style={{whiteSpace: "nowrap", cursor:'pointer'}} onClick={toggleMobileNav} id='mobile-nav-bar'><MdKeyboardArrowLeft className='inline '/> Menu</button>

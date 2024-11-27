@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLoaderData } from 'react-router-dom';
 import ProductCard from "../components/productCard";
+import LoadingSpinner from "../layouts/loader";
 
 function Products() {
+    const [isLoading, setIsLoading] = useState(true);
     const [products, setProducts] = useState([]);
     const data = useLoaderData();
 
@@ -11,7 +13,18 @@ function Products() {
             setProducts(data);
         }
     }, [data]);
-
+    useEffect(() => {
+        if (data) {
+          const timer = setTimeout(() => {
+            setIsLoading(false); 
+          }, 3000);
+          return () => clearTimeout(timer);
+        }
+    }, [data]);
+    
+    if (isLoading || !data) {
+        return <LoadingSpinner />;
+    }
     return (
         <div className=' w-11/12 lg:w-4/5 m-auto mt-[50px] mb-[50px] flex flex-col gap-11 pb-24 '>
             <div className='flex flex-col gap-3'>
