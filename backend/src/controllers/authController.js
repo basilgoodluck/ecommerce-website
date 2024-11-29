@@ -2,6 +2,9 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { connect } from '../config/mongodb.js';
 import validateUser from "../utils/validators.js";
+import { configDotenv } from "dotenv";
+
+configDotenv()
 
 
 const JWT_ACCESS_TOKEN = process.env.JWT_KEY
@@ -54,11 +57,11 @@ export const SignIn = async (req, res) => {
         if(!user){
             return res.status(401).json({message: "invalid credentials"})
         }
-
         const isValidPassword = await bcrypt.compare(password, user.password)
         if (!isValidPassword) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
+
 
         const accessToken = jwt.sign({ userId: user._id }, JWT_ACCESS_TOKEN, { subject: "Access API", expiresIn: "1m"} )
 
