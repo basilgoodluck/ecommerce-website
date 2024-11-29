@@ -1,11 +1,10 @@
 import bcrypt from "bcryptjs";
-import jsonwebtoken from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { connect } from '../config/mongodb.js';
 import validateUser from "../utils/validators.js";
 
 
 const JWT_ACCESS_TOKEN = process.env.JWT_KEY
-const jwt = jsonwebtoken()
 
 export const SignUp = async (req, res) => {
     try {
