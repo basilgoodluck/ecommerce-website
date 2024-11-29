@@ -23,4 +23,4 @@ const validateUser = (userData) => {
     }
 }
 
-export default { validateUser }
+export default validateUser
