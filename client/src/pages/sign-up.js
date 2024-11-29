@@ -49,7 +49,7 @@ function SignUp({ setAuth }) {
 
         setIsLoading(true)
         try{
-            const response = await fetch("https://ecommerce-website-reb9.onrender.com/api/auth/sign-up", {
+            const response = await fetch("https://ecommerce-website-reb9.onrender.com/auth/sign-up", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -61,7 +61,6 @@ function SignUp({ setAuth }) {
 
             if(response.ok){
                 console.log("sumiii")
-                localStorage.setItem("token", data.token)
                 setAuth(true)
                 navigate("/")
             } 

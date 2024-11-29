@@ -27,7 +27,11 @@ import ProtectedRoute from './components/protectedRoute.js';
 const Layout = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false);
   const menuClickedRef = React.useRef(false);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
   
+  const handleSignin = async () => {
+    
+  }
   const toggleMobileNav = React.useCallback(() => {
     setIsMobileNavOpen(!isMobileNavOpen);
     menuClickedRef.current = true; 

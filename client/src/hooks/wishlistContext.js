@@ -5,15 +5,13 @@ const WishlistContext = createContext();
 export const WishlistProvider = ({ children }) => {
     const [wish, setWish] = useState([]);
 
-    const toggleWish = (item, bool) => {
+    const toggleWish = (item) => {
         setWish((prevList) => {
             const target = prevList.find((e) => e._id === item._id);
-            if(bool){
-                return [...prevList, item]
-            }
-            else{
-                return prevList.filter((item) => item._id !== target._id)
-            }
+            // if(bool){
+            // return [...prevList, item]
+
+            return prevList.filter((item) => item._id !== target._id)
 
         })
     }
