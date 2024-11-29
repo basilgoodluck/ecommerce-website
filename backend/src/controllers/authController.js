@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
 import { connect } from '../config/mongodb.js';
 
+
 export const SignUp = async (req, res) => {
     try {
         const {name, email, password} = req.body;
@@ -13,7 +14,7 @@ export const SignUp = async (req, res) => {
         const database = await connect()
         const usersCollection = database.collection("users")
 
-        const existingUser = usersCollection.findOne({ email })
+        const existingUser = await usersCollection.findOne({ email })
         if(existingUser){
             return res.status(409).json({message: "email exists"})
         }
@@ -45,7 +46,7 @@ export const SignIn = async (req, res) => {
         const database = await connect()
 
         const usersCollection = database.collection("users")
-        const user = usersCollection.findOne({email})
+        const user = await usersCollection.findOne({email})
 
         if(!user){
             return res.status(401).json({message: "invalid credentials"})
