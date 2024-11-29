@@ -45,10 +45,9 @@ function SignUp({ setAuth }) {
     const handleSubmit = async (e) => {
 
         e.preventDefault()
-        if(!validateForm()) return
-
-        setIsLoading(true)
         try{
+            if(!validateForm()) return
+            setIsLoading(true)
             const response = await fetch("https://ecommerce-website-reb9.onrender.com/auth/sign-up", {
                 method: "POST",
                 headers: {
@@ -62,7 +61,7 @@ function SignUp({ setAuth }) {
             if(response.ok){
                 console.log("sumiii")
                 setAuth(true)
-                navigate("/")
+                navigate("/sign-in")
             } 
             else{
                 setErrors({submit: data.meessage || "Registration failed"})
