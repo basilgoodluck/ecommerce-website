@@ -20,6 +20,8 @@ import Cart from './pages/cart';
 import Product from './layouts/product';
 import InfiniteSlider from './components/slider';
 import { CartProvider } from './hooks/cartContext';
+import { AuthProvider } from './hooks/authContext.js';
+import ProtectedRoute from './components/protectedRoute.js';
 
 
 const Layout = () => {
@@ -117,12 +119,20 @@ const router = createBrowserRouter([
       },
       {
         path: '/wishlist',
-        element: <WishList />,
+        element: (
+          <ProtectedRoute>
+            <WishList />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />,
       },
       {
         path: '/users/user/cart',
-        element: <Cart />,
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />,
       },
       {
@@ -137,8 +147,11 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <CartProvider>
-      <RouterProvider router={router} />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
+

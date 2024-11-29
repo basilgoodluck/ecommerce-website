@@ -92,7 +92,6 @@ function Product() {
     return
   }
   
-
   return (
     <div className="w-11/12 lg:w-4/5 m-auto py-10 flex flex-col gap-10 overflow-x-hidden">
       <div>
@@ -138,7 +137,7 @@ function Product() {
                   <div className='w-full'>
                       <button disabled={!details.inStock} className={`${details.inStock ? "bg-red-600":"bg-gray-400"} block text-white text-xs md:text-md rounded-md m-auto py-4 px-5`} onClick={() => addToCart(location.state.item)}>Add to cart</button>
                   </div>
-                  <button onClick={} className="flex justify-center items-center border border-gray-400 rounded-md">
+                  <button onClick={handleAddWish} className="flex justify-center items-center border border-gray-400 rounded-md">
                     <CiHeart className="text-4xl" />
                   </button>
                 </div>
