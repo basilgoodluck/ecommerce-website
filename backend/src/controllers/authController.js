@@ -6,9 +6,6 @@ import { configDotenv } from "dotenv";
 
 configDotenv()
 
-
-const JWT_ACCESS_TOKEN = process.env.JWT_KEY
-
 export const SignUp = async (req, res) => {
     try {
         const {name, email, password} = req.body;
@@ -53,6 +50,7 @@ export const SignIn = async (req, res) => {
 
         const usersCollection = database.collection("users")
         const user = await usersCollection.findOne({email})
+        console.log(user)
 
         if(!user){
             return res.status(401).json({message: "invalid credentials"})
@@ -63,16 +61,15 @@ export const SignIn = async (req, res) => {
         }
 
 
-        const accessToken = jwt.sign({ userId: user._id }, JWT_ACCESS_TOKEN, { subject: "Access API", expiresIn: "1m"} )
+        const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_KEY , { subject: "Access API", expiresIn: "10m"} )
 
-        res.json({
+        res.status(201).json({
             userId: user._id,
             accessToken
         });
     }
     catch(error) {
-        console.error('Login error:', error);
-        res.status(500).json({ message: 'Server error during login' });
+        res.status(500).json({ message: "error" });
     }
 }
 
