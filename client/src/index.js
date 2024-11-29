@@ -27,11 +27,7 @@ import ProtectedRoute from './components/protectedRoute.js';
 const Layout = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false);
   const menuClickedRef = React.useRef(false);
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
   
-  // const handleSignin = async () => {
-    
-  // }
   const toggleMobileNav = React.useCallback(() => {
     setIsMobileNavOpen(!isMobileNavOpen);
     menuClickedRef.current = true; 
@@ -75,54 +71,68 @@ const Layout = () => {
 }
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Layout />,
+    path: "/",
+    element: <Layout />, 
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
-        element: <Home />,
+        path: "/",
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />,
         loader: ProductsData,
       },
       {
-        path: '/about',
-        element: <About />,
+        path: "/about",
+        element: (
+          <ProtectedRoute>
+            <About />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />,
       },
       {
-        path: '/blog',
-        element: <Blog />,
+        path: "/blog",
+        element: (
+          <ProtectedRoute>
+            <Blog />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />,
       },
       {
-        path: '/contact',
-        element: <Contact />,
+        path: "/contact",
+        element: (
+          <ProtectedRoute>
+            <Contact />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />,
       },
       {
-        path: '/products',
-        element: <Products />,
+        path: "/products",
+        element: (
+          <ProtectedRoute>
+            <Products />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />,
         loader: ProductsData,
       },
       {
-        path: '/product/:id',
-        element: <Product />,
+        path: "/product/:id",
+        element: (
+          <ProtectedRoute>
+            <Product />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />,
       },
       {
-        path: '/sign-up',
-        element: <SignUp />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: '/sign-in',
-        element: <SignIn />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: '/wishlist',
+        path: "/wishlist",
         element: (
           <ProtectedRoute>
             <WishList />
@@ -131,7 +141,7 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
       },
       {
-        path: '/users/user/cart',
+        path: "/users/user/cart",
         element: (
           <ProtectedRoute>
             <Cart />
@@ -141,13 +151,29 @@ const router = createBrowserRouter([
       },
       {
         path: "/promo-items",
-        element: <InfiniteSlider />,
+        element: (
+          <ProtectedRoute>
+            <InfiniteSlider />
+          </ProtectedRoute>
+        ),
         errorElement: <ErrorPage />,
-        loader: GetPromoItems
-      }
-    ]
+        loader: GetPromoItems,
+      },
+      {
+        path: "/sign-up",
+        element: <SignUp />,
+        errorElement: <ErrorPage />,
+      },
+      {
+        path: "/sign-in",
+        element: <SignIn />,
+        errorElement: <ErrorPage />,
+      },
+    ],
   },
 ]);
+
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
