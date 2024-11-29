@@ -18,7 +18,7 @@ export const SignUp = async (req, res) => {
             return res.status(409).json({message: "email exists"})
         }
 
-        const hashedPassword = await bcrypt.hash(password, 12);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         await usersCollection.insertOne({
             name,

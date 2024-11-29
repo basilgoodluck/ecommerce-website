@@ -48,12 +48,13 @@ function SignUp({ setAuth }) {
         try{
             if(!validateForm()) return
             setIsLoading(true)
+            const { name, email, password, confirmPassword } = formData;
             const response = await fetch("https://ecommerce-website-reb9.onrender.com/auth/sign-up", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({ name, email, password})
             })
 
             const data = await response.json()
