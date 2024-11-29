@@ -4,6 +4,9 @@ import { connect } from '../config/mongodb.js';
 import validateUser from "../utils/validators.js";
 
 
+const JWT_ACCESS_TOKEN = process.env.JWT_KEY
+const jwt = jsonwebtoken()
+
 export const SignUp = async (req, res) => {
     try {
         const {name, email, password} = req.body;
@@ -58,11 +61,7 @@ export const SignIn = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        const accessToken = jsonwebtoken.sign(
-            {userId: user._id},
-            process.env.JWT_KEY,
-            {expiresIn: "2m"}
-        )
+        const accessToken = jwt.sign({ userId: user._id }, JWT_ACCESS_TOKEN, { subject: "Access API", expiresIn: "1m"} )
 
         res.json({
             userId: user._id,
