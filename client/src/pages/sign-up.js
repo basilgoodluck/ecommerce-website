@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-function SignUp({ setAuth }) {
+function SignUp() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: "",
@@ -61,7 +61,6 @@ function SignUp({ setAuth }) {
 
             if(response.ok){
                 console.log("sumiii")
-                setAuth(true)
                 navigate("/sign-in")
             } 
             else{
