@@ -1,13 +1,14 @@
 import bcrypt from "bcryptjs";
 import jsonwebtoken from "jsonwebtoken";
 import { connect } from '../config/mongodb.js';
+import validateUser from "../utils/validators.js";
 
 
 export const SignUp = async (req, res) => {
     try {
         const {name, email, password} = req.body;
 
-        const validation = validatorUser({name, email, password});
+        const validation = validateUser({name, email, password});
         if(!validation.isValid){
             return res.status(400).json({errors: validation.errors})
         }
