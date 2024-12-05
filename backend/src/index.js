@@ -15,15 +15,13 @@ app.use(cors());
 app.use(express.json());
 app.use("/auth", authRoute);
 
-const myProducts = []
-const myPromoProducts = []
+let myProducts = []
+let myPromoProducts = []
 
 cron.schedule("*/4 * * * *", async function() {
     try{
         const products = await getProducts();
-        for(let i = 0; i < products.length; i++){
-            myProducts.push(products[i])
-        }
+        myProducts = products
     }
     catch(error){
         console.error(error.message);
@@ -36,9 +34,7 @@ cron.schedule("*/4 * * * *", async function () {
         const shuffledProducts = promoProducts.sort(() => Math.random() - 0.5);
         const data = shuffledProducts.slice(0, 5);
 
-        for(let i = 0; i < data.length; i++){
-            myProducts.push(myPromoProducts[i])
-        }
+        myPromoProducts = data
 
     } 
     catch(error){
@@ -49,17 +45,8 @@ app.get('/api/products', (req, res) => {
     res.status(200).json(myProducts)
 });
 
-app.get('/api/promo-products', async (req, res) => {
-    try {
-        const products = await getProducts();
-        const shuffledProducts = products.sort(() => Math.random() - 0.5);
-        const data = shuffledProducts.slice(0, 5);
-
-        res.status(200).json(data);
-    } catch (error) {
-        console.error('Error loading promo products:', error);
-        res.status(500).json({ message: 'Error fetching promo products', error: error.message });
-    }
+app.get('/api/promo-products', (req, res) => {
+    res.status(200).json(myPromoProducts)
 });
 
 app.listen(PORT, () => {
