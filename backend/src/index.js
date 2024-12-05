@@ -1,4 +1,5 @@
 import express from 'express';
+import cron from "node-cron";
 import cors from 'cors';
 import { connect, getProducts } from './config/mongodb.js';
 import dotenv from 'dotenv';
@@ -14,14 +15,38 @@ app.use(cors());
 app.use(express.json());
 app.use("/auth", authRoute);
 
-app.get('/api/products', async (req, res) => {
-    try {
+const myProducts = []
+const myPromoProducts = []
+
+cron.schedule("*/4 * * * *", async function() {
+    try{
         const products = await getProducts();
-        res.status(200).json(products);
-    } catch (error) {
-        console.error('Error loading API:', error);
-        res.status(500).json({ message: 'Error fetching products', error: error.message });
+        for(let i = 0; i < products.length; i++){
+            myProducts.push(products[i])
+        }
     }
+    catch(error){
+        console.error(error.message);
+    }
+});
+
+cron.schedule("*/4 * * * *", async function () {
+    try{
+        const promoProducts = await getProducts();
+        const shuffledProducts = promoProducts.sort(() => Math.random() - 0.5);
+        const data = shuffledProducts.slice(0, 5);
+
+        for(let i = 0; i < data.length; i++){
+            myProducts.push(myPromoProducts[i])
+        }
+
+    } 
+    catch(error){
+        console.error(error.message);
+    }   
+})
+app.get('/api/products', (req, res) => {
+    res.status(200).json(myProducts)
 });
 
 app.get('/api/promo-products', async (req, res) => {
