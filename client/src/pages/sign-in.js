@@ -23,7 +23,7 @@ function SignIn() {
         try {
           const { email, password } = formData;
     
-          const res = await fetch("https://ecommerce-website-reb9.onrender.com/auth/sign-in", {
+          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/sign-in`, {
             method: "POST",
             headers: {
               "content-type": "application/json"

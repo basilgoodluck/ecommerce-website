@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config()
 
-const uri = process.env.MONGODB_URL ||`mongodb+srv://nobledev:${encodeURIComponent(process.env.MONGODB_PSW)}@free-cluster.xucjn.mongodb.net/?retryWrites=true&w=majority&appName=free-cluster`
+const uri = process.env.MONGO_URL
 const client = new MongoClient(uri)
 let db
 

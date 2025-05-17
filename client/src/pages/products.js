@@ -2,25 +2,16 @@ import { useEffect, useState } from "react";
 import { useLoaderData } from 'react-router-dom';
 import ProductCard from "../components/productCard";
 import LoadingSpinner from "../layouts/loader";
+import ProductsData from '../api/productsData';
+import { useQuery } from "@tanstack/react-query";
 
 function Products() {
-    const [isLoading, setIsLoading] = useState(true);
-    const [products, setProducts] = useState([]);
-    const data = useLoaderData();
 
-    useEffect(() => {
-        if (Array.isArray(data)) {
-            setProducts(data);
-        }
-    }, [data]);
-    useEffect(() => {
-        if (data) {
-          const timer = setTimeout(() => {
-            setIsLoading(false); 
-          }, 3000);
-          return () => clearTimeout(timer);
-        }
-    }, [data]);
+  const { data, isLoading } = useQuery({
+    queryKey: ['products'],
+    queryFn: ProductsData,
+    staleTime: 1000 * 60 * 5,
+  });
     
     if (isLoading || !data) {
         return <LoadingSpinner />;
@@ -36,7 +27,7 @@ function Products() {
                     <h1 className='text-black text-xl md:text-2xl font-medium' style={{whiteSpace:'nowrap'}}>Explore Our Products</h1>
                 </div>
                 <div className="grid gap-x-5 gap-y-12 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {products.map((product) => (
+                    {data.map((product) => (
                         <ProductCard key={product._id} product={product} />
                     ))}                          
                 </div>          

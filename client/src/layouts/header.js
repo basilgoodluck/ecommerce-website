@@ -8,9 +8,11 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useCart } from '../hooks/cartContext';
 import { MdFavorite } from "react-icons/md";
+import { useWish } from '../hooks/wishlistContext';
 
 function Header({ toggleMobileNav }) {
   const { cart } = useCart()  
+  const { wish } = useWish()
   const blackH = useRef(0);
   const [hei, setHei] = useState(0);
 
@@ -53,7 +55,7 @@ function Header({ toggleMobileNav }) {
               </div>
               <Link to="/wishlist" className='relative'>
                 <MdFavorite className='text-xl md:text-2xl text-red-600 font-bold'/>
-                <div className='absolute bg-white text-[8px] text-red-600 font-semibold rounded-full w-3 h-3 flex justify-center items-center p-1 left-0 -top-1'>{cart.length}</div>
+                <div className='absolute bg-white text-[8px] text-red-600 font-semibold rounded-full w-3 h-3 flex justify-center items-center p-1 left-0 -top-1'>{wish && wish.length}</div>
               </Link>
               <Link to='/users/user/cart' className='relative'>
                 <div className='absolute bg-red-600 text-[8px] text-white font-semibold rounded-full w-3 h-3 flex justify-center items-center p-1 left-0 -top-1'>{cart.length}</div>

@@ -20,16 +20,14 @@ const InfiniteSlider = () => {
   const autoSlideInterval = 2500;
   const swipeThreshold = 50;
 
-  // Initialize products and extended items
   useEffect(() => {
     if (Array.isArray(data) && data.length > 0) {
-      const promoItems = data.slice(0, 5); // Limit to 5 items
+      const promoItems = data.slice(0, 5); 
       setProducts(promoItems);
       setExtendedItems([...promoItems, ...promoItems, ...promoItems]); // Triplicate for infinite effect
     }
   }, [data]);
 
-  // Auto-slide effect
   useEffect(() => {
     let autoSlide;
     if (!isPaused && !isDragging) {
@@ -39,10 +37,9 @@ const InfiniteSlider = () => {
         }
       }, autoSlideInterval);
     }
-    return () => clearInterval(autoSlide); // Cleanup interval
+    return () => clearInterval(autoSlide);
   }, [isPaused, isDragging, isTransitioning, handleNext]);
 
-  // Infinite looping logic
   useEffect(() => {
     if (currentIndex <= 0) {
       setExtendedItems((prev) => [...products, ...prev]);
@@ -52,7 +49,6 @@ const InfiniteSlider = () => {
     }
   }, [currentIndex, products, extendedItems]);
 
-  // Memoized function to avoid re-creating `handleNext` in `useEffect`
  function handleNext() {
     if (isTransitioning) return;
     setIsTransitioning(true);
@@ -151,7 +147,7 @@ const InfiniteSlider = () => {
             onClick={() => setCurrentIndex(index)}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               actualIndex === index
-                ? 'bg-yellow-500 w-4'
+                ? 'bg-red-500 w-4'
                 : 'bg-white hover:bg-white/70'
             }`}
           />
@@ -182,11 +178,11 @@ const InfiniteSlider = () => {
           className="flex-shrink-0 w-full h-64 flex items-center justify-center bg-black select-none text-white px-10"
           style={{ width: `${slideWidth}%` }}
           >
-            <div className="text-xs font-bold flex gap-1 items-center">
+            <div className="text-xs font-bold flex gap-1 items-center justify-between">
               <div className=''>
-                <p className='font-normal text-[7px]'>{item.description.split(" ").slice(0, 10).join(" ") + "..."}</p>
-                <p className='text-xs'>{item.title}</p>
-                <button onClick={(e) => handleClick(item)} className="underline underline-offset-1 text-base text-yellow-500"  >Shop Now</button>
+                <p className='font-normal text-[13px]'>{item.description.split(" ").slice(0, 10).join(" ") + "..."}</p>
+                <p className='text-base'>{item.title}</p>
+                <button onClick={(e) => handleClick(item)} className="underline underline-offset-1 text-xl text-red-500"  >Shop Now</button>
                 
               </div>
               <div className='w-4/5'><img src={item.imageURL} alt='sdiofds' /></div>

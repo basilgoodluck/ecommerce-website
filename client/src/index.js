@@ -20,9 +20,13 @@ import Cart from './pages/cart';
 import Product from './layouts/product';
 import InfiniteSlider from './components/slider';
 import { CartProvider } from './hooks/cartContext';
+import { WishlistProvider } from './hooks/wishlistContext.js';
 import { AuthProvider } from './hooks/authContext.js';
 import ProtectedRoute from './components/protectedRoute.js';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+
+const queryClient = new QueryClient();
 
 const Layout = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = React.useState(false);
@@ -77,11 +81,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: (
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        ),
+        element: <Home />,
         errorElement: <ErrorPage />,
         loader: ProductsData,
       },
@@ -105,11 +105,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/contact",
-        element: (
-          <ProtectedRoute>
-            <Contact />
-          </ProtectedRoute>
-        ),
+        element: <Contact />,
         errorElement: <ErrorPage />,
       },
       {
@@ -174,14 +170,17 @@ const router = createBrowserRouter([
 ]);
 
 
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider>
-      <CartProvider>
-        <RouterProvider router={router} />
-      </CartProvider>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <WishlistProvider>
+          <CartProvider>
+            <RouterProvider router={router} />
+          </CartProvider>
+        </WishlistProvider>
+      </AuthProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

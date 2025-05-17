@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Hero from '../layouts/hero';
 import FlashSales from '../layouts/flashSales';
 import Categories from '../layouts/categories';
 import BestSellingProducts from '../layouts/bestSellingProducts';
 import OurProducts from '../layouts/ourProducts';
 import NewArrivals from '../layouts/newArrivals';
-import { useLoaderData } from 'react-router-dom';
 import LoadingSpinner from '../layouts/loader';
+import { useQuery } from '@tanstack/react-query';
+import ProductsData from '../api/productsData';
 
 export default function Home() {
-  const data = useLoaderData();
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate a delay for rendering components
-    if (data) {
-      const timer = setTimeout(() => {
-        setIsLoading(false); 
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [data]);
+  const { data, isLoading } = useQuery({
+    queryKey: ['products'],
+    queryFn: ProductsData,
+    staleTime: 1000 * 60 * 5,
+  });
 
   if (isLoading || !data) {
     return <LoadingSpinner />;

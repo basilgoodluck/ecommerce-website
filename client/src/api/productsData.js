@@ -1,7 +1,7 @@
 export default async function ProductsData() {
 
     try{
-        const response = await fetch("https://ecommerce-website-reb9.onrender.com/api/products")
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/products`)
         if(!response.ok){
             throw new Error(`HTTP error! status: ${response.status}`)
         }

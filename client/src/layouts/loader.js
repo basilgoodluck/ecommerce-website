@@ -24,7 +24,6 @@ const LoadingSpinner = () => {
         }}
       ></div>
 
-      {/* Keyframe animation */}
       <style>
         {`
           @keyframes spin {

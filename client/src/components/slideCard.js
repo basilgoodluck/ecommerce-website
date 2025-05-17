@@ -7,7 +7,7 @@ function SlideCard({promo_product}) {
         <div className='w-full flex flex-col gap-4 items-start justify-center'>
             <div className='flex gap-4 items-center'>
                 <img src='./assets/iphone_logo.png' alt='iphoneLogo' className='w-full' />
-                <p className='text-sm' style={{whiteSpace:'nowrap'}}>{promo_product.title}</p>
+                <p className='text-base' style={{whiteSpace:'nowrap'}}>{promo_product.title}</p>
             </div>
             <h1 className='text-xl md:text-2xl font-bold'>{promo_product.incentive}</h1>
             <button style={{whiteSpace:'nowrap'}} className='group underline underline-offset-4 cursor-pointer text-sm md:text-lg'>Shop Now <FaArrowRight className='inline group-hover:translate-x-1 transition-transform'/></button>

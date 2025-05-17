@@ -11,12 +11,6 @@ import { useRef, useState, useEffect } from 'react';
 function Categories() {
     const CategoryRef = useRef(null);
 
-    // const handleRight = useEffect(() => {
-    //     const whenClicked = ()=>{
-
-    //     }
-    // }, [])   
-
   return (
     <div className=' w-11/12 md:w-4/5 m-auto mt-[50px] mb-[50px] flex flex-col gap-11 border-b pb-24 border-gray-400'>
         <div className='flex flex-col gap-3'>

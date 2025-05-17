@@ -1,6 +1,6 @@
 export default async function GetPromoItems() {
     try{
-        const response = fetch("https://ecommerce-website-reb9.onrender.com/api/promo-products")
+        const response = fetch(`${process.env.REACT_APP_API_URL}/api/promo-products`)
 
         if(!response.ok){
             throw new Error(`HTTP error! status: ${response.status}`)

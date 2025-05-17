@@ -16,14 +16,16 @@ function Cart() {
   }, [cart])
   return (
     <>
-    <div className='bg-black p-4 text-white'>
-      <h1 className='text-xl font-bold px-1 mx-auto mt-5'>Hey, Odogwu!</h1>
-      <p className='px-1 '>This is your cart. </p>
+    <div className='text-center py-3'>
+      <h1 className='text-xl font-bold px-1 mx-auto'>Hey, Odogwu!</h1>
+      <p className='px-1'>This is your cart. </p>
     </div>
     {cart.length === 0 ? (
-      <p className='text-center font-bold text-3xl text-red-600 p-6'>Oops, Your Cart is empty!</p>
+      <div>
+        <p className='text-center font-bold text-3xl text-red-600 p-6'>Oops, Your Cart is empty!</p>
+      </div>
     ):(
-      <div className="flex flex-col gap-10 w-11/12 m-auto lg:w-4/5 py-10 overflow-x-scroll">
+      <div className="flex flex-col gap-3 w-11/12 m-auto lg:w-4/5 py-10 overflow-x-scroll">
         <div className="bg-white/70 grid grid-cols-4 shadow shadow-gray-400 py-6 font-semibold">
           <div>Product</div>
           <div>Price</div>

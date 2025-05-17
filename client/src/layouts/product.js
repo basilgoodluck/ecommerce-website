@@ -9,12 +9,10 @@ import { useWish } from '../hooks/wishlistContext';
 function Product() {
   const [details, setDetails] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
-  // const [fav, setFav] = useState(false)
   const { addToCart } = useCart()
-  // const { toggleWish } = useWish()
   const [productCount, setProductCount] = useState(1)
   const location = useLocation();
-  const navigate = useNavigate();
+  const { toggleWish } = useWish()
 
   useEffect(() => {
     if (location.state && location.state.item) {
@@ -25,10 +23,6 @@ function Product() {
   if (!details) {
     return <LoadingSpinner />;
   }
-
-  // function handleAddWish () {
-  //   return
-  // }
   
 
   const StarRating = ({ rating }) => {
@@ -135,9 +129,9 @@ function Product() {
                     <button disabled={!details.inStock} onClick={incProductCount} className={`${details.inStock ? "bg-red-600":"bg-gray-400"} text-white border-l border-gray-400 w-10 `}>+</button>
                   </div>
                   <div className='w-full'>
-                      <button disabled={!details.inStock} className={`${details.inStock ? "bg-red-600":"bg-gray-400"} block text-white text-xs md:text-md rounded-md m-auto py-4 px-5`} onClick={() => addToCart(location.state.item)}>Add to cart</button>
+                      <button disabled={!details.inStock} className={`${details.inStock ? "bg-red-600":"bg-gray-400"} block text-white text-xs md:text-md rounded-md m-auto py-4 px-5`} onClick={() => addToCart(location.state.item, parseInt(productCount))}>Add to cart</button>
                   </div>
-                  <button className="flex justify-center items-center border border-gray-400 rounded-md">
+                  <button className="flex justify-center items-center border border-gray-400 rounded-md" onClick={() => toggleWish(location.state.item)}>
                     <CiHeart className="text-4xl" />
                   </button>
                 </div>
