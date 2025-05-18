@@ -10,7 +10,6 @@ function Products() {
   const { data, isLoading } = useQuery({
     queryKey: ['products'],
     queryFn: ProductsData,
-    staleTime: 1000 * 60 * 5,
   });
     
     if (isLoading || !data) {

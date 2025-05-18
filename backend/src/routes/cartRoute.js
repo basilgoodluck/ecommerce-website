@@ -1,11 +1,18 @@
-import { Router } from "express";
-import { addToCart } from "../controllers/cartController";
-import { clearCart } from "../controllers/cartController";
-import { deleteCartItem } from "../controllers/cartController";
-import authenticate from "../middleware/auth"
+import express from 'express';
+import {
+  getCart,
+  addToCart,
+  updateCartItem,
+  removeFromCart,
+  clearCart,
+} from '../controllers/cartController.js';
 
-const router = Router()
+const router = express.Router();
 
-router.post("/add-to-cart", authenticate, addToCart);
-router.delete("/delete-cartItem", authenticate, deleteCartItem);
-router.delete("/clear-cart", authenticate, clearCart)
+router.get('/', getCart);
+router.post('/add', addToCart);
+router.put('/:id', updateCartItem);
+router.delete('/:id', removeFromCart);
+router.delete('/clear', clearCart);
+
+export default router;

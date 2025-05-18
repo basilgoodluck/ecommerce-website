@@ -110,11 +110,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/products",
-        element: (
-          <ProtectedRoute>
-            <Products />
-          </ProtectedRoute>
-        ),
+        element: <Products />,
         errorElement: <ErrorPage />,
         loader: ProductsData,
       },

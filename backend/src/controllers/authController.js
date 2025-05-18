@@ -61,9 +61,9 @@ export const SignIn = async (req, res) => {
         }
 
 
-        const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_KEY, { subject: "Access API", expiresIn: "10m"} )
+        const accessToken = jwt.sign({ userId: user._id }, process.env.JWT_KEY, { subject: "Access API", expiresIn: "50m"} )
 
-        res.status(201).json({
+        res.status(200).json({
             userId: user._id,
             accessToken
         });

@@ -1,98 +1,136 @@
-import { connect } from "../config/mongodb";
+import { connect } from '../config/mongodb.js';
+
+export const getCart = async (req, res) => {
+  try {
+    const database = await connect();
+    const cartsCollection = database.collection('carts');
+    const cart = await cartsCollection.findOne({ userId: req.user.userId });
+    res.json(cart ? cart.items : []);
+  } catch (error) {
+    console.error('Get cart error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 export const addToCart = async (req, res) => {
-    try{
-        const db = await connect();
-        const users = db.collection("users")
-        const carts = db.collection("carts")
-        const targetUser = await users.findOne({ _id: req.user.userId })
-        if(!targetUser){
-            return res.status(401).json({ message: "User not found" })
-        }
-        const { productId, quantity, price } = req.body;
-        if(!productId || quantity === undefined || !price){
-            return res.status(401).json({ message: "Incomplete order details" })
-        }
-        const existingItem = carts.findOne({
-            _id: req.user.userId,
-            productId: req.body.productId
-        })
-        if(existingItem){
-            const updatedCart = await carts.updateOne(
-                { _id: existingItem._id },
-                { $set: { quantity: existingItem.quantity + req.body.quantity } }
-            )
-            return res.status(201).json({ message: `${updatedCart}`})
-        }
-        const newCartItem = await carts.insertOne({
-            _id: req.user.userId,
-            items: {
-                productId,
-                quantity,
-                price
-            }
-        })
-        return res.status(201).json(newCartItem)
-    }
-    catch(error) {
-        return res.status(500).json({ message: error.message })
-    }
-}
-
-export const clearCart = async (req, res) => {
-    try{
-        const db = await connect();
-        const carts = db.collection("carts");
-        const result = await carts.deleteMany({ _id: req.user.userId })
-        if(!result.deletedCount === 0){
-            return res.status(401).json({ message: "No items found in the cart" })
-        }
-        return res.status(201).json({ message: "Cart cleared successfully" })
-
-    }
-    catch(error){
-        return res.status(500).json({ message: error.message})
-    }
-}
-
-export const deleteCartItem = async (req, res) =>{
-    try{
-        const db = await connect()
-        const carts = db.collection("carts")
-        const result = await carts.deleteOne({ 
-            _id: req.user.userId,
-            productId: req.params.productId
-        })
-        if (result.deletedCount === 0) {
-            return res.status(404).json({ message: "Item not found in cart" });
-        }
-
-        res.status(200).json({ message: "Cart item deleted successfully" });
-    }
-    catch(error){
-        return res.status(500).json({ message: `Error occured while deleting item, ${error.message}`})
-    }
-}
-
-export const getCartItems = async (req, res) => {
   try {
-    const db = await connect();
-    const users = db.collection("users");
-    const carts = db.collection("carts")
+    const { productId, quantity, ...productData } = req.body;
+    const database = await connect();
+    const cartsCollection = database.collection('carts');
 
-    const targetUser = await users.findOne({ _id: req.user.userId });
-
-    if (!targetUser) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    const cart = await carts.findOne({ userId: req.user.userId });
+    let cart = await cartsCollection.findOne({ userId: req.user.userId });
 
     if (!cart) {
-      return res.status(404).json({ message: "Cart is empty" });
+      cart = {
+        userId: req.user.userId,
+        items: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
     }
-    return res.status(200).json(cart.items);
+
+    const existingItemIndex = cart.items.findIndex(
+      (item) => item.productId === productId
+    );
+
+    if (existingItemIndex !== -1) {
+      cart.items[existingItemIndex].quantity += quantity;
+    } else {
+      cart.items.push({ productId, quantity, ...productData });
+    }
+
+    cart.updatedAt = new Date();
+    await cartsCollection.updateOne(
+      { userId: req.user.userId },
+      { $set: cart },
+      { upsert: true }
+    );
+
+    res.status(201).json(cart.items);
   } catch (error) {
-    console.error("Error fetching cart items:", error);
-    res.status(500).json({ message: "Error fetching cart items", error: error.message });
+    console.error('Add to cart error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const updateCartItem = async (req, res) => {
+  try {
+    const { quantity } = req.body;
+    const database = await connect();
+    const cartsCollection = database.collection('carts');
+
+    const cart = await cartsCollection.findOne({ userId: req.user.userId });
+
+    if (!cart) {
+      return res.status(404).json({ message: 'Cart not found' });
+    }
+
+    const item = cart.items.find((item) => item.productId === req.params.id);
+
+    if (!item) {
+      return res.status(404).json({ message: 'Item not found' });
+    }
+
+    item.quantity = quantity;
+    cart.updatedAt = new Date();
+
+    await cartsCollection.updateOne(
+      { userId: req.user.userId },
+      { $set: cart }
+    );
+
+    res.json(cart.items);
+  } catch (error) {
+    console.error('Update cart item error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const removeFromCart = async (req, res) => {
+  try {
+    const database = await connect();
+    const cartsCollection = database.collection('carts');
+
+    const cart = await cartsCollection.findOne({ userId: req.user.userId });
+
+    if (!cart) {
+      return res.status(404).json({ message: 'Cart not found' });
+    }
+
+    cart.items = cart.items.filter((item) => item.productId !== req.params.id);
+    cart.updatedAt = new Date();
+
+    await cartsCollection.updateOne(
+      { userId: req.user.userId },
+      { $set: cart }
+    );
+
+    res.json(cart.items);
+  } catch (error) {
+    console.error('Remove from cart error:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const clearCart = async (req, res) => {
+  try {
+    const database = await connect();
+    const cartsCollection = database.collection('carts');
+
+    const cart = await cartsCollection.findOne({ userId: req.user.userId });
+
+    if (cart) {
+      cart.items = [];
+      cart.updatedAt = new Date();
+      await cartsCollection.updateOne(
+        { userId: req.user.userId },
+        { $set: cart }
+      );
+    }
+
+    res.json({ items: [] });
+  } catch (error) {
+    console.error('Clear cart error:', error);
+    res.status(500).json({ message: 'Server error' });
   }
 };
