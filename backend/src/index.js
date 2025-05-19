@@ -9,6 +9,7 @@ import withListRoute from './routes/wishlist.js';
 import recommendedRoute from './routes/recommended.js';
 import productRoute from './routes/productRoute.js';
 import authenticate from './middleware/auth.js';
+import helmet from 'helmet';
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(morgan('dev'));
+app.use(helmet());
 app.use('/api/auth', authRoute);
 app.use('/api/cart', authenticate, cartRoute);
 app.use('/api/wishlist', authenticate, withListRoute);
