@@ -10,9 +10,12 @@ export const CartProvider = ({ children }) => {
   const { data: cart = [], isLoading, error } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        const stored = localStorage.getItem("cart");
+        return stored ? JSON.parse(stored) : [];
+      }
       try {
-        const token = localStorage.getItem("authToken");
-        if (!token) throw new Error("No auth token found");
         const response = await fetch(`${API_URL}/api/cart`, {
           method: "GET",
           headers: {
@@ -24,6 +27,7 @@ export const CartProvider = ({ children }) => {
           const errorMsg = await response.text();
           if (response.status === 401) {
             localStorage.removeItem("authToken");
+            localStorage.removeItem("userId");
             throw new Error("Unauthorized: Please log in again");
           }
           throw new Error(`Failed to fetch cart: ${errorMsg}`);
@@ -35,15 +39,39 @@ export const CartProvider = ({ children }) => {
         return stored ? JSON.parse(stored) : [];
       }
     },
+    enabled: !!localStorage.getItem("authToken"),
   });
 
   const addToCartMutation = useMutation({
     mutationFn: async ({ item, itemCount }) => {
       const token = localStorage.getItem("authToken");
-      if (!token) throw new Error("No auth token found");
+      if (!token) {
+        const stored = localStorage.getItem("cart");
+        let updatedCart = stored ? JSON.parse(stored) : [];
+        const existingItem = updatedCart.find((cartItem) => cartItem.productId === item._id);
+        if (existingItem) {
+          updatedCart = updatedCart.map((cartItem) =>
+            cartItem.productId === item._id
+              ? { ...cartItem, quantity: cartItem.quantity + itemCount }
+              : cartItem
+          );
+        } else {
+          updatedCart.push({
+            productId: item._id,
+            quantity: itemCount,
+            title: item.title,
+            imageURL: item.imageURL,
+            price: item.price,
+            reviews: item.reviews,
+            inStock: item.inStock,
+            description: item.description,
+          });
+        }
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        return updatedCart;
+      }
       const existingItem = cart.find((cartItem) => cartItem.productId === item._id);
       let updatedCart;
-
       if (existingItem) {
         const response = await fetch(`${API_URL}/api/cart/${item._id}`, {
           method: "PUT",
@@ -57,6 +85,7 @@ export const CartProvider = ({ children }) => {
           const errorMsg = await response.text();
           if (response.status === 401) {
             localStorage.removeItem("authToken");
+            localStorage.removeItem("userId");
             throw new Error("Unauthorized: Please log in again");
           }
           throw new Error(`Failed to update cart: ${errorMsg}`);
@@ -88,28 +117,45 @@ export const CartProvider = ({ children }) => {
           const errorMsg = await response.text();
           if (response.status === 401) {
             localStorage.removeItem("authToken");
+            localStorage.removeItem("userId");
             throw new Error("Unauthorized: Please log in again");
           }
           throw new Error(`Failed to add to cart: ${errorMsg}`);
         }
-        updatedCart = await response.json(); // Backend returns entire items array
+        updatedCart = await response.json();
       }
       return updatedCart;
     },
     onSuccess: (updatedCart) => {
       queryClient.setQueryData(["cart"], updatedCart);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      if (!localStorage.getItem("authToken")) {
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+      }
     },
     onError: (error) => {
       console.error("Add to cart error:", error.message);
-      localStorage.setItem("cart", JSON.stringify(cart));
+      if (!localStorage.getItem("authToken")) {
+        localStorage.setItem("cart", JSON.stringify(cart));
+      }
     },
   });
 
   const increaseQuantityMutation = useMutation({
     mutationFn: async (itemId) => {
       const token = localStorage.getItem("authToken");
-      if (!token) throw new Error("No auth token found");
+      if (!token) {
+        const stored = localStorage.getItem("cart");
+        let updatedCart = stored ? JSON.parse(stored) : [];
+        const item = updatedCart.find((cartItem) => cartItem.productId === itemId);
+        if (!item) throw new Error("Item not found in cart");
+        updatedCart = updatedCart.map((cartItem) =>
+          cartItem.productId === itemId
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        );
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        return updatedCart;
+      }
       const item = cart.find((cartItem) => cartItem.productId === itemId);
       if (!item) throw new Error("Item not found in cart");
       const response = await fetch(`${API_URL}/api/cart/${itemId}`, {
@@ -124,6 +170,7 @@ export const CartProvider = ({ children }) => {
         const errorMsg = await response.text();
         if (response.status === 401) {
           localStorage.removeItem("authToken");
+          localStorage.removeItem("userId");
           throw new Error("Unauthorized: Please log in again");
         }
         throw new Error(`Failed to increase quantity: ${errorMsg}`);
@@ -133,10 +180,12 @@ export const CartProvider = ({ children }) => {
           ? { ...cartItem, quantity: cartItem.quantity + 1 }
           : cartItem
       );
-    },
+  },
     onSuccess: (updatedCart) => {
       queryClient.setQueryData(["cart"], updatedCart);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      if (!localStorage.getItem("authToken")) {
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+      }
     },
     onError: (error) => {
       console.error("Increase quantity error:", error.message);
@@ -146,7 +195,23 @@ export const CartProvider = ({ children }) => {
   const decreaseQuantityMutation = useMutation({
     mutationFn: async (itemId) => {
       const token = localStorage.getItem("authToken");
-      if (!token) throw new Error("No auth token found");
+      if (!token) {
+        const stored = localStorage.getItem("cart");
+        let updatedCart = stored ? JSON.parse(stored) : [];
+        const item = updatedCart.find((cartItem) => cartItem.productId === itemId);
+        if (!item) throw new Error("Item not found in cart");
+        if (item.quantity <= 1) {
+          updatedCart = updatedCart.filter((cartItem) => cartItem.productId !== itemId);
+        } else {
+          updatedCart = updatedCart.map((cartItem) =>
+            cartItem.productId === itemId
+              ? { ...cartItem, quantity: cartItem.quantity - 1 }
+              : cartItem
+          );
+        }
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        return updatedCart;
+      }
       const item = cart.find((cartItem) => cartItem.productId === itemId);
       if (!item) throw new Error("Item not found in cart");
       if (item.quantity <= 1) {
@@ -161,6 +226,7 @@ export const CartProvider = ({ children }) => {
           const errorMsg = await response.text();
           if (response.status === 401) {
             localStorage.removeItem("authToken");
+            localStorage.removeItem("userId");
             throw new Error("Unauthorized: Please log in again");
           }
           throw new Error(`Failed to remove item: ${errorMsg}`);
@@ -179,6 +245,7 @@ export const CartProvider = ({ children }) => {
         const errorMsg = await response.text();
         if (response.status === 401) {
           localStorage.removeItem("authToken");
+          localStorage.removeItem("userId");
           throw new Error("Unauthorized: Please log in again");
         }
         throw new Error(`Failed to decrease quantity: ${errorMsg}`);
@@ -191,7 +258,9 @@ export const CartProvider = ({ children }) => {
     },
     onSuccess: (updatedCart) => {
       queryClient.setQueryData(["cart"], updatedCart);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      if (!localStorage.getItem("authToken")) {
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+      }
     },
     onError: (error) => {
       console.error("Decrease quantity error:", error.message);
@@ -201,7 +270,13 @@ export const CartProvider = ({ children }) => {
   const removeFromCartMutation = useMutation({
     mutationFn: async (itemId) => {
       const token = localStorage.getItem("authToken");
-      if (!token) throw new Error("No auth token found");
+      if (!token) {
+        const stored = localStorage.getItem("cart");
+        let updatedCart = stored ? JSON.parse(stored) : [];
+        updatedCart = updatedCart.filter((cartItem) => cartItem.productId !== itemId);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        return updatedCart;
+      }
       const item = cart.find((cartItem) => cartItem.productId === itemId);
       if (!item) throw new Error("Item not found in cart");
       const response = await fetch(`${API_URL}/api/cart/${itemId}`, {
@@ -215,6 +290,7 @@ export const CartProvider = ({ children }) => {
         const errorMsg = await response.text();
         if (response.status === 401) {
           localStorage.removeItem("authToken");
+          localStorage.removeItem("userId");
           throw new Error("Unauthorized: Please log in again");
         }
         throw new Error(`Failed to remove item: ${errorMsg}`);
@@ -223,7 +299,9 @@ export const CartProvider = ({ children }) => {
     },
     onSuccess: (updatedCart) => {
       queryClient.setQueryData(["cart"], updatedCart);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      if (!localStorage.getItem("authToken")) {
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+      }
     },
     onError: (error) => {
       console.error("Remove from cart error:", error.message);
@@ -233,7 +311,10 @@ export const CartProvider = ({ children }) => {
   const clearCartMutation = useMutation({
     mutationFn: async () => {
       const token = localStorage.getItem("authToken");
-      if (!token) throw new Error("No auth token found");
+      if (!token) {
+        localStorage.setItem("cart", JSON.stringify([]));
+        return [];
+      }
       const response = await fetch(`${API_URL}/api/cart/clear`, {
         method: "DELETE",
         headers: {
@@ -245,6 +326,7 @@ export const CartProvider = ({ children }) => {
         const errorMsg = await response.text();
         if (response.status === 401) {
           localStorage.removeItem("authToken");
+          localStorage.removeItem("userId");
           throw new Error("Unauthorized: Please log in again");
         }
         throw new Error(`Failed to clear cart: ${errorMsg}`);
@@ -253,7 +335,9 @@ export const CartProvider = ({ children }) => {
     },
     onSuccess: (updatedCart) => {
       queryClient.setQueryData(["cart"], updatedCart);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      if (!localStorage.getItem("authToken")) {
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+      }
     },
     onError: (error) => {
       console.error("Clear cart error:", error.message);
