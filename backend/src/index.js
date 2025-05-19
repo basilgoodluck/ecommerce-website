@@ -35,6 +35,9 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'Server is active' });
 });
 
+app.get('/', (req, res) => {
+  console.log("Server is running")
+})
 app.listen(PORT, () => {
   console.log(`App is running on port http://localhost:${PORT}`);
 });
