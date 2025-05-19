@@ -15,11 +15,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     checkAuthStatus();
-
-    const handleStorageChange = () => {
-      checkAuthStatus();
-    };
-
+    const handleStorageChange = () => checkAuthStatus();
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
   }, [checkAuthStatus]);
@@ -31,13 +27,20 @@ export const AuthProvider = ({ children }) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
       });
+
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        const text = await response.text();
+        throw new Error(`Expected JSON, received ${contentType || "unknown"}: ${text.slice(0, 50)}...`);
+      }
+
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message || "Login failed");
+        throw new Error(data.message || `Login failed with status ${response.status}`);
       }
 
       localStorage.setItem("authToken", data.token);
-      localStorage.setItem("userId", data.userId); 
+      localStorage.setItem("userId", data.userId);
       setIsAuthenticated(true);
 
       const localCart = localStorage.getItem("cart");
