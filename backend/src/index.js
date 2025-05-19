@@ -31,6 +31,10 @@ app.use('/api/wishlist', authenticate, withListRoute);
 app.use('/api/recommended', authenticate, recommendedRoute);
 app.use('/api/products', productRoute);
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'Server is active' });
+});
+
 app.listen(PORT, () => {
   console.log(`App is running on port http://localhost:${PORT}`);
 });
